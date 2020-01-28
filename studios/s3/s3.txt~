@@ -1,0 +1,136 @@
+1) Noah Goldstein & Clayton Knittel
+
+2)
+
+#include "s3.h"
+
+
+#define SUCCESS 0
+#define FAILURE -1
+
+
+int verbose = 0;
+int inserts = 0;
+int nthreads = 0;
+#define Version "0.1"
+
+static ArgOption args[] = {
+  // Kind, 	  Method,		name,	    reqd,  variable,		help
+  { KindOption,   Integer, 		"-v", 	    0,     &verbose, 		"Set verbosity level" },
+  { KindOption,   Integer, 		"-t", 	    0,     &nthreads, 		"Set number of threads" },
+  { KindOption,   Integer, 		"--inserts", 0,     &inserts, 		"Set number of inserts per thread" },
+  { KindHelp,     Help, 	"-h" },
+  { KindEnd }
+};
+static ArgDefs argp = { args, "s3", Version, NULL };
+
+using namespace std;
+
+
+class vwrapper {
+  vector<int> v;
+public:
+  vwrapper operator<< (const int& a) {
+    this->v.push_back(a);
+    return *this;
+  }
+  int operator() () {
+    int sum = 0;
+    for(std::vector<int>::iterator it = this->v.begin();
+	it != this->v.end();
+	++it){
+      sum += *it;
+    }
+    return sum;
+  }
+
+};
+
+void doSum(vwrapper* vw){
+  for(int i=0;i<inserts;i++){
+    if(verbose){
+      cout << "pushing back " << i << endl;
+    }
+    (*vw) << i;
+  }
+  if(verbose){
+    cout << "sum: " << (*vw)() << endl;
+  }
+}
+
+int main(int argc, char* argv[]){
+  progname = argv[0];
+  ArgParser* ap = createArgumentParser(&argp);
+  int result = parseArguments(ap, argc, argv);
+  if(result){
+    die("Error parsing arguments");
+  }
+  freeCommandLine();
+  freeArgumentParser(ap);
+  if(inserts&&nthreads){
+    vector<thread> threads;
+    vwrapper vw;
+    for(int i=0;i<nthreads;i++){
+      threads.push_back(thread(doSum, &vw));
+    }
+    for(int i=0;i<nthreads;i++){
+      threads[i].join();
+    }
+  }
+
+  return SUCCESS;
+}
+
+noah[10:18:24]:~/programs/classes/active/532/studios/s3$ ./s3 -v 1 --inserts 10 -t 1
+pushing back 0
+pushing back 1
+pushing back 2
+pushing back 3
+pushing back 4
+pushing back 5
+pushing back 6
+pushing back 7
+pushing back 8
+pushing back 9
+sum: 45
+
+3)
+noah[10:20:10]:~/programs/classes/active/532/studios/s3$ ./s3 -v 1 --inserts 10 -t 8
+pushing back pushing back 0
+0pushing back 1
+pushing back 2
+pushing back 3
+pushing back 4
+pushing back 5
+pushing back 6
+
+pushing back pushing back 7
+0pushing back 8
+pushing back 9
+sum: 
+45
+pushing back pushing back 1
+0
+pushing back 1
+pushing back 2
+pushing back 3
+pushing back 4
+pushing back 5
+pushing back 6
+pushing back 7
+pushing back 8
+pushing back 9
+sum: 91
+pushing back 1
+pushing back 2
+pushing back 3
+pushing back 4
+pushing back 5
+pushing back 6
+pushing back 7
+pushing back 8
+pushing back 9
+sum: 136
+free(): invalid next size (normal)
+s3: malloc.c:2401: sysmalloc: Assertion `(old_top == initial_top (av) && old_size == 0) || ((unsigned long) (old_size) >= MINSIZE && prev_inuse (old_top) && ((unsigned long) old_end & (pagesize - 1)) == 0)' failed.
+Aborted (core dumped)

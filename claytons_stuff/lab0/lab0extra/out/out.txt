@@ -1,0 +1,38 @@
+Hamlet
+BERNARDO BERNARDO.txt
+FRANCISCO FRANCISCO.txt
+HORATIO HORATIO.txt
+GUILDENSTERN GUILDENSTERN.txt
+LAERTES LAERTES.txt
+LORD POLONIUS LORD_POLONIUS.txt
+your kingdom your_kingdom.txt
+MARCELLUS MARCELLUS.txt
+Second Clown Second_Clown.txt
+Ghost Ghost.txt
+KING CLAUDIUS KING_CLAUDIUS.txt
+CORNELIUS CORNELIUS.txt
+HAMLET HAMLET.txt
+Captain Captain.txt
+QUEEN GERTRUDE QUEEN_GERTRUDE.txt
+First Clown First_Clown.txt
+Messenger Messenger.txt
+All All.txt
+OPHELIA OPHELIA.txt
+REYNALDO REYNALDO.txt
+First Priest First_Priest.txt
+ROSENCRANTZ ROSENCRANTZ.txt
+VOLTIMAND VOLTIMAND.txt
+First Ambassador First_Ambassador.txt
+First Player First_Player.txt
+Prologue Prologue.txt
+Player King Player_King.txt
+Player Queen Player_Queen.txt
+LUCIANUS LUCIANUS.txt
+ROSENCRANTZ AND GUILDENSTERN ROSENCRANTZ_AND_GUILDENSTERN.txt
+PRINCE FORTINBRAS PRINCE_FORTINBRAS.txt
+Danes Danes.txt
+Gentleman Gentleman.txt
+Servant Servant.txt
+First Sailor First_Sailor.txt
+OSRIC OSRIC.txt
+Lord Lord.txt

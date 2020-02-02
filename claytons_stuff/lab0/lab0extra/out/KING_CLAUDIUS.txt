@@ -1,0 +1,539 @@
+190 Though yet of Hamlet our dear brother's death
+191 The memory be green, and that it us befitted
+192 To bear our hearts in grief and our whole kingdom
+193 To be contracted in one brow of woe,
+194 Yet so far hath discretion fought with nature
+195 That we with wisest sorrow think on him,
+196 Together with remembrance of ourselves.
+197 Therefore our sometime sister, now our queen,
+198 The imperial jointress to this warlike state,
+199 Have we, as 'twere with a defeated joy,--
+200 With an auspicious and a dropping eye,
+201 With mirth in funeral and with dirge in marriage,
+202 In equal scale weighing delight and dole,--
+203 Taken to wife: nor have we herein barr'd
+204 Your better wisdoms, which have freely gone
+205 With this affair along. For all, our thanks.
+206 Now follows, that you know, young Fortinbras,
+207 Holding a weak supposal of our worth,
+208 Or thinking by our late dear brother's death
+209 Our state to be disjoint and out of frame,
+210 Colleagued with the dream of his advantage,
+211 He hath not fail'd to pester us with message,
+212 Importing the surrender of those lands
+213 Lost by his father, with all bonds of law,
+214 To our most valiant brother. So much for him.
+215 Now for ourself and for this time of meeting:
+216 Thus much the business is: we have here writ
+217 To Norway, uncle of young Fortinbras,--
+218 Who, impotent and bed-rid, scarcely hears
+219 Of this his nephew's purpose,--to suppress
+220 His further gait herein; in that the levies,
+221 The lists and full proportions, are all made
+222 Out of his subject: and we here dispatch
+223 You, good Cornelius, and you, Voltimand,
+224 For bearers of this greeting to old Norway;
+225 Giving to you no further personal power
+226 To business with the king, more than the scope
+227 Of these delated articles allow.
+228 Farewell, and let your haste commend your duty.
+231 We doubt it nothing: heartily farewell.
+232 And now, Laertes, what's the news with you?
+233 You told us of some suit; what is't, Laertes?
+234 You cannot speak of reason to the Dane,
+235 And loose your voice: what wouldst thou beg, Laertes,
+236 That shall not be my offer, not thy asking?
+237 The head is not more native to the heart,
+238 The hand more instrumental to the mouth,
+239 Than is the throne of Denmark to thy father.
+240 What wouldst thou have, Laertes?
+248 Have you your father's leave? What says Polonius?
+253 Take thy fair hour, Laertes; time be thine,
+254 And thy best graces spend it at thy will!
+255 But now, my cousin Hamlet, and my son,--
+257 How is it that the clouds still hang on you?
+279 'Tis sweet and commendable in your nature, Hamlet,
+280 To give these mourning duties to your father:
+281 But, you must know, your father lost a father;
+282 That father lost, lost his, and the survivor bound
+283 In filial obligation for some term
+284 To do obsequious sorrow: but to persever
+285 In obstinate condolement is a course
+286 Of impious stubbornness; 'tis unmanly grief;
+287 It shows a will most incorrect to heaven,
+288 A heart unfortified, a mind impatient,
+289 An understanding simple and unschool'd:
+290 For what we know must be and is as common
+291 As any the most vulgar thing to sense,
+292 Why should we in our peevish opposition
+293 Take it to heart? Fie! 'tis a fault to heaven,
+294 A fault against the dead, a fault to nature,
+295 To reason most absurd: whose common theme
+296 Is death of fathers, and who still hath cried,
+297 From the first corse till he that died to-day,
+298 'This must be so.' We pray you, throw to earth
+299 This unprevailing woe, and think of us
+300 As of a father: for let the world take note,
+301 You are the most immediate to our throne;
+302 And with no less nobility of love
+303 Than that which dearest father bears his son,
+304 Do I impart toward you. For your intent
+305 In going back to school in Wittenberg,
+306 It is most retrograde to our desire:
+307 And we beseech you, bend you to remain
+308 Here, in the cheer and comfort of our eye,
+309 Our chiefest courtier, cousin, and our son.
+313 Why, 'tis a loving and a fair reply:
+314 Be as ourself in Denmark. Madam, come;
+315 This gentle and unforced accord of Hamlet
+316 Sits smiling to my heart: in grace whereof,
+317 No jocund health that Denmark drinks to-day,
+318 But the great cannon to the clouds shall tell,
+319 And the king's rouse the heavens all bruit again,
+320 Re-speaking earthly thunder. Come away.
+1052 Welcome, dear Rosencrantz and Guildenstern!
+1053 Moreover that we much did long to see you,
+1054 The need we have to use you did provoke
+1055 Our hasty sending. Something have you heard
+1056 Of Hamlet's transformation; so call it,
+1057 Sith nor the exterior nor the inward man
+1058 Resembles that it was. What it should be,
+1059 More than his father's death, that thus hath put him
+1060 So much from the understanding of himself,
+1061 I cannot dream of: I entreat you both,
+1062 That, being of so young days brought up with him,
+1063 And sith so neighbour'd to his youth and havior,
+1064 That you vouchsafe your rest here in our court
+1065 Some little time: so by your companies
+1066 To draw him on to pleasures, and to gather,
+1067 So much as from occasion you may glean,
+1068 Whether aught, to us unknown, afflicts him thus,
+1069 That, open'd, lies within our remedy.
+1086 Thanks, Rosencrantz and gentle Guildenstern.
+1096 Thou still hast been the father of good news.
+1104 O, speak of that; that do I long to hear.
+1107 Thyself do grace to them, and bring them in.
+1108 He tells me, my dear Gertrude, he hath found
+1109 The head and source of all your son's distemper.
+1112 Well, we shall sift him.
+1113 Welcome, my good friends!
+1114 Say, Voltimand, what from our brother Norway?
+1136 It likes us well;
+1137 And at our more consider'd time well read,
+1138 Answer, and think upon this business.
+1139 Meantime we thank you for your well-took labour:
+1140 Go to your rest; at night we'll feast together:
+1141 Most welcome home!
+1186 But how hath she
+1187 Received his love?
+1189 As of a man faithful and honourable.
+1211 Do you think 'tis this?
+1216 Not that I know.
+1222                   How may we try it further?
+1232 We will try it.
+1667 And can you, by no drift of circumstance,
+1668 Get from him why he puts on this confusion,
+1669 Grating so harshly all his days of quiet
+1670 With turbulent and dangerous lunacy?
+1693 With all my heart; and it doth much content me
+1694 To hear him so inclined.
+1695 Good gentlemen, give him a further edge,
+1696 And drive his purpose on to these delights.
+1698                   Sweet Gertrude, leave us too;
+1699 For we have closely sent for Hamlet hither,
+1700 That he, as 'twere by accident, may here
+1701 Affront Ophelia:
+1702 Her father and myself, lawful espials,
+1703 Will so bestow ourselves that, seeing, unseen,
+1704 We may of their encounter frankly judge,
+1705 And gather by him, as he is behaved,
+1706 If 't be the affliction of his love or no
+1707 That thus he suffers for.
+1723 [Aside]          O, 'tis too true!
+1724 How smart a lash that speech doth give my conscience!
+1725 The harlot's cheek, beautied with plastering art,
+1726 Is not more ugly to the thing that helps it
+1727 Than is my deed to my most painted word:
+1728 O heavy burthen!
+1841 Love! his affections do not that way tend;
+1842 Nor what he spake, though it lack'd form a little,
+1843 Was not like madness. There's something in his soul,
+1844 O'er which his melancholy sits on brood;
+1845 And I do doubt the hatch and the disclose
+1846 Will be some danger: which for to prevent,
+1847 I have in quick determination
+1848 Thus set it down: he shall with speed to England,
+1849 For the demand of our neglected tribute
+1850 Haply the seas and countries different
+1851 With variable objects shall expel
+1852 This something-settled matter in his heart,
+1853 Whereon his brains still beating puts him thus
+1854 From fashion of himself. What think you on't?
+1867 It shall be so:
+1868 Madness in great ones must not unwatch'd go.
+1962 How fares our cousin Hamlet?
+1965 I have nothing with this answer, Hamlet; these words
+1966 are not mine.
+2097 Have you heard the argument? Is there no offence in 't?
+2100 What do you call the play?
+2132 Give me some light: away!
+2259 I like him not, nor stands it safe with us
+2260 To let his madness range. Therefore prepare you;
+2261 I your commission will forthwith dispatch,
+2262 And he to England shall along with you:
+2263 The terms of our estate may not endure
+2264 Hazard so dangerous as doth hourly grow
+2265 Out of his lunacies.
+2283 Arm you, I pray you, to this speedy voyage;
+2284 For we will fetters put upon this fear,
+2285 Which now goes too free-footed.
+2297 Thanks, dear my lord.
+2298 O, my offence is rank it smells to heaven;
+2299 It hath the primal eldest curse upon't,
+2300 A brother's murder. Pray can I not,
+2301 Though inclination be as sharp as will:
+2302 My stronger guilt defeats my strong intent;
+2303 And, like a man to double business bound,
+2304 I stand in pause where I shall first begin,
+2305 And both neglect. What if this cursed hand
+2306 Were thicker than itself with brother's blood,
+2307 Is there not rain enough in the sweet heavens
+2308 To wash it white as snow? Whereto serves mercy
+2309 But to confront the visage of offence?
+2310 And what's in prayer but this two-fold force,
+2311 To be forestalled ere we come to fall,
+2312 Or pardon'd being down? Then I'll look up;
+2313 My fault is past. But, O, what form of prayer
+2314 Can serve my turn? 'Forgive me my foul murder'?
+2315 That cannot be; since I am still possess'd
+2316 Of those effects for which I did the murder,
+2317 My crown, mine own ambition and my queen.
+2318 May one be pardon'd and retain the offence?
+2319 In the corrupted currents of this world
+2320 Offence's gilded hand may shove by justice,
+2321 And oft 'tis seen the wicked prize itself
+2322 Buys out the law: but 'tis not so above;
+2323 There is no shuffling, there the action lies
+2324 In his true nature; and we ourselves compell'd,
+2325 Even to the teeth and forehead of our faults,
+2326 To give in evidence. What then? what rests?
+2327 Try what repentance can: what can it not?
+2328 Yet what can it when one can not repent?
+2329 O wretched state! O bosom black as death!
+2330 O limed soul, that, struggling to be free,
+2331 Art more engaged! Help, angels! Make assay!
+2332 Bow, stubborn knees; and, heart with strings of steel,
+2333 Be soft as sinews of the newborn babe!
+2334 All may be well.
+2359 [Rising]  My words fly up, my thoughts remain below:
+2360 Words without thoughts never to heaven go.
+2596 There's matter in these sighs, these profound heaves:
+2597 You must translate: 'tis fit we understand them.
+2598 Where is your son?
+2601 What, Gertrude? How does Hamlet?
+2608 O heavy deed!
+2609 It had been so with us, had we been there:
+2610 His liberty is full of threats to all;
+2611 To you yourself, to us, to every one.
+2612 Alas, how shall this bloody deed be answer'd?
+2613 It will be laid to us, whose providence
+2614 Should have kept short, restrain'd and out of haunt,
+2615 This mad young man: but so much was our love,
+2616 We would not understand what was most fit;
+2617 But, like the owner of a foul disease,
+2618 To keep it from divulging, let it feed
+2619 Even on the pith of Life. Where is he gone?
+2624 O Gertrude, come away!
+2625 The sun no sooner shall the mountains touch,
+2626 But we will ship him hence: and this vile deed
+2627 We must, with all our majesty and skill,
+2628 Both countenance and excuse. Ho, Guildenstern!
+2629 Friends both, go join you with some further aid:
+2630 Hamlet in madness hath Polonius slain,
+2631 And from his mother's closet hath he dragg'd him:
+2632 Go seek him out; speak fair, and bring the body
+2633 Into the chapel. I pray you, haste in this.
+2634 Come, Gertrude, we'll call up our wisest friends;
+2635 And let them know, both what we mean to do,
+2636 And what's untimely done. O, come away!
+2637 My soul is full of discord and dismay.
+2668 I have sent to seek him, and to find the body.
+2669 How dangerous is it that this man goes loose!
+2670 Yet must not we put the strong law on him:
+2671 He's loved of the distracted multitude,
+2672 Who like not in their judgment, but their eyes;
+2673 And where tis so, the offender's scourge is weigh'd,
+2674 But never the offence. To bear all smooth and even,
+2675 This sudden sending him away must seem
+2676 Deliberate pause: diseases desperate grown
+2677 By desperate appliance are relieved,
+2678 Or not at all.
+2679 How now! what hath befall'n?
+2682 But where is he?
+2684 Bring him before us.
+2686 Now, Hamlet, where's Polonius?
+2688 At supper! where?
+2696 Alas, alas!
+2699 What dost you mean by this?
+2702 Where is Polonius?
+2708 Go seek him there.
+2710 Hamlet, this deed, for thine especial safety,--
+2711 Which we do tender, as we dearly grieve
+2712 For that which thou hast done,--must send thee hence
+2713 With fiery quickness: therefore prepare thyself;
+2714 The bark is ready, and the wind at help,
+2715 The associates tend, and every thing is bent
+2716 For England.
+2718 Ay, Hamlet.
+2720 So is it, if thou knew'st our purposes.
+2723 Thy loving father, Hamlet.
+2726 Follow him at foot; tempt him with speed aboard;
+2727 Delay it not; I'll have him hence to-night:
+2728 Away! for every thing is seal'd and done
+2729 That else leans on the affair: pray you, make haste.
+2730 And, England, if my love thou hold'st at aught--
+2731 As my great power thereof may give thee sense,
+2732 Since yet thy cicatrice looks raw and red
+2733 After the Danish sword, and thy free awe
+2734 Pays homage to us--thou mayst not coldly set
+2735 Our sovereign process; which imports at full,
+2736 By letters congruing to that effect,
+2737 The present death of Hamlet. Do it, England;
+2738 For like the hectic in my blood he rages,
+2739 And thou must cure me: till I know 'tis done,
+2740 Howe'er my haps, my joys were ne'er begun.
+2852 How do you, pretty lady?
+2856 Conceit upon her father.
+2867 Pretty Ophelia!
+2877 How long hath she been thus?
+2884 Follow her close; give her good watch,
+2885 I pray you.
+2886 O, this is the poison of deep grief; it springs
+2887 All from her father's death. O Gertrude, Gertrude,
+2888 When sorrows come, they come not single spies
+2889 But in battalions. First, her father slain:
+2890 Next, your son gone; and he most violent author
+2891 Of his own just remove: the people muddied,
+2892 Thick and unwholesome in their thoughts and whispers,
+2893 For good Polonius' death; and we have done but greenly,
+2894 In hugger-mugger to inter him: poor Ophelia
+2895 Divided from herself and her fair judgment,
+2896 Without the which we are pictures, or mere beasts:
+2897 Last, and as much containing as all these,
+2898 Her brother is in secret come from France;
+2899 Feeds on his wonder, keeps himself in clouds,
+2900 And wants not buzzers to infect his ear
+2901 With pestilent speeches of his father's death;
+2902 Wherein necessity, of matter beggar'd,
+2903 Will nothing stick our person to arraign
+2904 In ear and ear. O my dear Gertrude, this,
+2905 Like to a murdering-piece, in many places
+2906 Gives me superfluous death.
+2908 Where are my Switzers? Let them guard the door.
+2909 What is the matter?
+2923 The doors are broke.
+2935                   What is the cause, Laertes,
+2936 That thy rebellion looks so giant-like?
+2937 Let him go, Gertrude; do not fear our person:
+2938 There's such divinity doth hedge a king,
+2939 That treason can but peep to what it would,
+2940 Acts little of his will. Tell me, Laertes,
+2941 Why thou art thus incensed. Let him go, Gertrude.
+2942 Speak, man.
+2944 Dead.
+2946 Let him demand his fill.
+2954 Who shall stay you?
+2958 Good Laertes,
+2959 If you desire to know the certainty
+2960 Of your dear father's death, is't writ in your revenge,
+2961 That, swoopstake, you will draw both friend and foe,
+2962 Winner and loser?
+2964 Will you know them then?
+2968 Why, now you speak
+2969 Like a good child and a true gentleman.
+2970 That I am guiltless of your father's death,
+2971 And am most sensible in grief for it,
+2972 It shall as level to your judgment pierce
+2973 As day does to your eye.
+3024 Laertes, I must commune with your grief,
+3025 Or you deny me right. Go but apart,
+3026 Make choice of whom your wisest friends you will.
+3027 And they shall hear and judge 'twixt you and me:
+3028 If by direct or by collateral hand
+3029 They find us touch'd, we will our kingdom give,
+3030 Our crown, our life, and all that we can ours,
+3031 To you in satisfaction; but if not,
+3032 Be you content to lend your patience to us,
+3033 And we shall jointly labour with your soul
+3034 To give it due content.
+3041 So you shall;
+3042 And where the offence is let the great axe fall.
+3043 I pray you, go with me.
+3077 Now must your conscience my acquaintance seal,
+3078 And you must put me in your heart for friend,
+3079 Sith you have heard, and with a knowing ear,
+3080 That he which hath your noble father slain
+3081 Pursued my life.
+3087 O, for two special reasons;
+3088 Which may to you, perhaps, seem much unsinew'd,
+3089 But yet to me they are strong. The queen his mother
+3090 Lives almost by his looks; and for myself--
+3091 My virtue or my plague, be it either which--
+3092 She's so conjunctive to my life and soul,
+3093 That, as the star moves not but in his sphere,
+3094 I could not but by her. The other motive,
+3095 Why to a public count I might not go,
+3096 Is the great love the general gender bear him;
+3097 Who, dipping all his faults in their affection,
+3098 Would, like the spring that turneth wood to stone,
+3099 Convert his gyves to graces; so that my arrows,
+3100 Too slightly timber'd for so loud a wind,
+3101 Would have reverted to my bow again,
+3102 And not where I had aim'd them.
+3108 Break not your sleeps for that: you must not think
+3109 That we are made of stuff so flat and dull
+3110 That we can let our beard be shook with danger
+3111 And think it pastime. You shortly shall hear more:
+3112 I loved your father, and we love ourself;
+3113 And that, I hope, will teach you to imagine--
+3114 How now! what news?
+3117 From Hamlet! who brought them?
+3121 Laertes, you shall hear them. Leave us.
+3128 'Tis Hamlets character. 'Naked!
+3129 And in a postscript here, he says 'alone.'
+3130 Can you advise me?
+3135 If it be so, Laertes--
+3136 As how should it be so? how otherwise?--
+3137 Will you be ruled by me?
+3140 To thine own peace. If he be now return'd,
+3141 As checking at his voyage, and that he means
+3142 No more to undertake it, I will work him
+3143 To an exploit, now ripe in my device,
+3144 Under the which he shall not choose but fall:
+3145 And for his death no wind of blame shall breathe,
+3146 But even his mother shall uncharge the practise
+3147 And call it accident.
+3151 It falls right.
+3152 You have been talk'd of since your travel much,
+3153 And that in Hamlet's hearing, for a quality
+3154 Wherein, they say, you shine: your sum of parts
+3155 Did not together pluck such envy from him
+3156 As did that one, and that, in my regard,
+3157 Of the unworthiest siege.
+3159 A very riband in the cap of youth,
+3160 Yet needful too; for youth no less becomes
+3161 The light and careless livery that it wears
+3162 Than settled age his sables and his weeds,
+3163 Importing health and graveness. Two months since,
+3164 Here was a gentleman of Normandy:--
+3165 I've seen myself, and served against, the French,
+3166 And they can well on horseback: but this gallant
+3167 Had witchcraft in't; he grew unto his seat;
+3168 And to such wondrous doing brought his horse,
+3169 As he had been incorpsed and demi-natured
+3170 With the brave beast: so far he topp'd my thought,
+3171 That I, in forgery of shapes and tricks,
+3172 Come short of what he did.
+3174 A Norman.
+3176 The very same.
+3179 He made confession of you,
+3180 And gave you such a masterly report
+3181 For art and exercise in your defence
+3182 And for your rapier most especially,
+3183 That he cried out, 'twould be a sight indeed,
+3184 If one could match you: the scrimers of their nation,
+3185 He swore, had had neither motion, guard, nor eye,
+3186 If you opposed them. Sir, this report of his
+3187 Did Hamlet so envenom with his envy
+3188 That he could nothing do but wish and beg
+3189 Your sudden coming o'er, to play with him.
+3190 Now, out of this,--
+3192 Laertes, was your father dear to you?
+3193 Or are you like the painting of a sorrow,
+3194 A face without a heart?
+3196 Not that I think you did not love your father;
+3197 But that I know love is begun by time;
+3198 And that I see, in passages of proof,
+3199 Time qualifies the spark and fire of it.
+3200 There lives within the very flame of love
+3201 A kind of wick or snuff that will abate it;
+3202 And nothing is at a like goodness still;
+3203 For goodness, growing to a plurisy,
+3204 Dies in his own too much: that we would do
+3205 We should do when we would; for this 'would' changes
+3206 And hath abatements and delays as many
+3207 As there are tongues, are hands, are accidents;
+3208 And then this 'should' is like a spendthrift sigh,
+3209 That hurts by easing. But, to the quick o' the ulcer:--
+3210 Hamlet comes back: what would you undertake,
+3211 To show yourself your father's son in deed
+3212 More than in words?
+3214 No place, indeed, should murder sanctuarize;
+3215 Revenge should have no bounds. But, good Laertes,
+3216 Will you do this, keep close within your chamber.
+3217 Hamlet return'd shall know you are come home:
+3218 We'll put on those shall praise your excellence
+3219 And set a double varnish on the fame
+3220 The Frenchman gave you, bring you in fine together
+3221 And wager on your heads: he, being remiss,
+3222 Most generous and free from all contriving,
+3223 Will not peruse the foils; so that, with ease,
+3224 Or with a little shuffling, you may choose
+3225 A sword unbated, and in a pass of practise
+3226 Requite him for your father.
+3237                   Let's further think of this;
+3238 Weigh what convenience both of time and means
+3239 May fit us to our shape: if this should fail,
+3240 And that our drift look through our bad performance,
+3241 'Twere better not assay'd: therefore this project
+3242 Should have a back or second, that might hold,
+3243 If this should blast in proof. Soft! let me see:
+3244 We'll make a solemn wager on your cunnings: I ha't.
+3245 When in your motion you are hot and dry--
+3246 As make your bouts more violent to that end--
+3247 And that he calls for drink, I'll have prepared him
+3248 A chalice for the nonce, whereon but sipping,
+3249 If he by chance escape your venom'd stuck,
+3250 Our purpose may hold there.
+3251 How now, sweet queen!
+3282 Let's follow, Gertrude:
+3283 How much I had to do to calm his rage!
+3284 Now fear I this will give it start again;
+3285 Therefore let's follow.
+3549 Pluck them asunder.
+3559 O, he is mad, Laertes.
+3582 I pray you, good Horatio, wait upon him.
+3583 Strengthen your patience in our last night's speech;
+3584 We'll put the matter to the present push.
+3585 Good Gertrude, set some watch over your son.
+3586 This grave shall have a living monument:
+3587 An hour of quiet shortly shall we see;
+3588 Till then, in patience our proceeding be.
+3807 Come, Hamlet, come, and take this hand from me.
+3845 Give them the foils, young Osric. Cousin Hamlet,
+3846 You know the wager?
+3849 I do not fear it; I have seen you both:
+3850 But since he is better'd, we have therefore odds.
+3854 Set me the stoops of wine upon that table.
+3855 If Hamlet give the first or second hit,
+3856 Or quit in answer of the third exchange,
+3857 Let all the battlements their ordnance fire:
+3858 The king shall drink to Hamlet's better breath;
+3859 And in the cup an union shall he throw,
+3860 Richer than that which four successive kings
+3861 In Denmark's crown have worn. Give me the cups;
+3862 And let the kettle to the trumpet speak,
+3863 The trumpet to the cannoneer without,
+3864 The cannons to the heavens, the heavens to earth,
+3865 'Now the king dunks to Hamlet.' Come, begin:
+3866 And you, the judges, bear a wary eye.
+3874 Stay; give me drink. Hamlet, this pearl is thine;
+3875 Here's to thy health.
+3876 Give him the cup.
+3880 Our son shall win.
+3885           Gertrude, do not drink.
+3887 [Aside]  It is the poison'd cup: it is too late.
+3891 I do not think't.
+3899 Part them; they are incensed.
+3907 She swounds to see them bleed.
+3923 O, yet defend me, friends; I am but hurt.

@@ -1,0 +1,34 @@
+1 Who's there?
+3 Long live the king!
+5 He.
+7 'Tis now struck twelve; get thee to bed, Francisco.
+10 Have you had quiet guard?
+12 Well, good night.
+13 If you do meet Horatio and Marcellus,
+14 The rivals of my watch, bid them make haste.
+24 Say,
+25 What, is Horatio there?
+27 Welcome, Horatio: welcome, good Marcellus.
+29 I have seen nothing.
+38 Sit down awhile;
+39 And let us once again assail your ears,
+40 That are so fortified against our story
+41 What we have two nights seen.
+44 Last night of all,
+45 When yond same star that's westward from the pole
+46 Had made his course to illume that part of heaven
+47 Where now it burns, Marcellus and myself,
+48 The bell then beating one,--
+50 In the same figure, like the king that's dead.
+52 Looks it not like the king?  mark it, Horatio.
+54 It would be spoke to.
+61                   See, it stalks away!
+64 How now, Horatio! you tremble and look pale:
+65 Is not this something more than fantasy?
+66 What think you on't?
+121 I think it be no other but e'en so:
+122 Well may it sort that this portentous figure
+123 Comes armed through our watch; so like the king
+124 That was and is the question of these wars.
+154 'Tis here!
+161 It was about to speak, when the cock crew.

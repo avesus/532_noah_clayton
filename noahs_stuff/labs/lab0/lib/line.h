@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 
+#define ERROR -1
+
 class line{
   int line_num;
   std::string char_name;

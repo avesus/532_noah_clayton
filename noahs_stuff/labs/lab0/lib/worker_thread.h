@@ -11,6 +11,7 @@
 #define BAD_LINE 0
 #define GOOD_LINE 1
 #define PARSE_ERROR 2
+#define OTHER_ERROR 3
 
 class worker_thread{
   play& cur_play;

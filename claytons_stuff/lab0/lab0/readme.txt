@@ -40,7 +40,7 @@ parallelization work well.
 How to unzip and test:
 
 via linux shell (ssh):
-    tar -xvf lab0.tar
+    unzip lab0.zip
 
 then open the lab0.sln file with Visual Studio 2019, and either build (^b in
 Visual Studio) and run from a windows cmd prompt (at the bottom, after building,
@@ -57,7 +57,7 @@ construct a Play from it, and at the end, it will print out the formatted play.
 
 Extra credit portion:
 
-how to unzip: this was included in lab0.tar, so you can just open the lab0extra.sln
+how to unzip: this was included in lab0.zip, so you can just open the lab0extra.sln
 from within the lab0extra directory.
 
 The program will take in arguments

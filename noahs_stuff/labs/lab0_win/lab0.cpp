@@ -88,10 +88,10 @@ int main(int argc, char* argv[]){
     return FAILURE;
   }
   try{
-  for(int i=0;i<workers.size();i++){
+  for(unsigned int i=0;i<workers.size();i++){
     workers[i]->start();
   }
-  for(int i=0;i<workers.size();i++){
+  for(unsigned int i=0;i<workers.size();i++){
     workers[i]->stop();
   }
   p.print(cout);

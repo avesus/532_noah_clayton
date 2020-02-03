@@ -10,11 +10,11 @@ std::string play::getName(){
   return this->name;
 }
 
-play& play::operator<<(line& l){
+play& play::operator<<(line* l){
   try{
-  int lindex = l.getLineNum();
+  int lindex = l->getLineNum();
   this->max_line = MAX(lindex, this->max_line);
-  assert(this->arr[lindex].isUnset());
+  assert(this->arr[lindex]==NULL);
   this->arr[lindex] = l;
   }
   catch (const std::exception& e){
@@ -31,19 +31,19 @@ play& play::operator<<(line& l){
 }
 
 void play::print(std::ostream& os){
-  std::string cur;
+  std::string cur = "";
   os << this->getName() << std::endl;
   for(int i=0;i<=this->max_line;i++){
-    if(this->arr[i].isUnset()){
+    if(this->arr[i]==NULL){
       continue;
     }
-    if(cur!=arr[i].getCharName()){
+    if(cur!=arr[i]->getCharName()){
       if(!cur.empty()){
 	os << "\n";
       }
-      os << arr[i].getCharName() << "." << std::endl;
-      cur = arr[i].getCharName();
+      os << arr[i]->getCharName() << "." << std::endl;
+      cur = arr[i]->getCharName();
     }
-    os << arr[i].getText() << std::endl;
+    os << arr[i]->getText() << std::endl;
   }
 }

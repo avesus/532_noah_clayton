@@ -13,12 +13,12 @@
 
 class play{
   std::string name;
-  sp_arr<line> arr;
+  sp_arr<line*> arr;
   int max_line;
  public:
   std::string getName();
   play(std::string pname);
-  play& operator<<(line& l);
+  play& operator<<(line* l);
   void print(std::ostream& os);
 };
 

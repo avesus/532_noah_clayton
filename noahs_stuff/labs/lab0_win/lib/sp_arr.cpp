@@ -55,3 +55,4 @@ T& sp_arr<T>::operator[](const int& n){
 
 template class sp_arr<int>;
 template class sp_arr<line>;
+template class sp_arr<line*>;

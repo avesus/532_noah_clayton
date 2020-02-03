@@ -27,7 +27,7 @@ int worker_thread::parseLine(std::string l){
       return BAD_LINE;
     }
 
-    line new_line(lnum, this->char_name, ltext);
+    line* new_line = new line(lnum, this->char_name, ltext);
     try {
       this->cur_play<<new_line;
     }

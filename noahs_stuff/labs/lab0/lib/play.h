@@ -13,7 +13,7 @@
 
 class play{
   std::string name;
-  sp_arr<line> arr;
+  sp_arr<line> arr; 
   int max_line;
  public:
   std::string getName();

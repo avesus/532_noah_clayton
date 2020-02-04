@@ -27,7 +27,7 @@ play& play::operator<<(line& l){
     throw std::runtime_error("add line");
   }
 
-
+  return *this;
 }
 
 void play::print(std::ostream& os){

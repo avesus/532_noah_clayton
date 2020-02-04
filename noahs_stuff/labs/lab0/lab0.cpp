@@ -1,13 +1,12 @@
 #include "lab0.h"
-
+//style: clang-tidy *.cpp *.h -checks=* -header-filter='.*' 
 
 #define SUCCESS 0
-#define FAILURE -1
+#define FAILURE -1 
 
 #define NUM_ARGS 2
   
 int verbose = 0;
-
 
 using namespace std;
 
@@ -31,6 +30,7 @@ int main(int argc, char* argv[]){
       return FAILURE;
     }
   }
+  
   catch (const std::exception& e){
     cerr << "Error in startup\n" << endl;
     cerr << e.what() << endl;
@@ -50,6 +50,7 @@ int main(int argc, char* argv[]){
 
   while(!config_file.eof()){
     try {
+
       std::string line;
       if(!getline(config_file, line, '\n')){
 	continue;
@@ -88,22 +89,22 @@ int main(int argc, char* argv[]){
     return FAILURE;
   }
   try{
-  for(int i=0;i<workers.size();i++){
-    workers[i]->start();
-  }
-  for(int i=0;i<workers.size();i++){
-    workers[i]->stop();
-  }
-  p.print(cout);
-  }
-    catch (const std::exception& e){
-      cerr << "Error running workers" << endl;
-      cerr << e.what() << endl;
-      return FAILURE;
+    for(int i=0;i<workers.size();i++){
+      workers[i]->start();
     }
-    catch (...) {
-      cerr << "Caught unknown exception running workers" << endl;
-      return FAILURE;
+    for(int i=0;i<workers.size();i++){
+      workers[i]->stop();
     }
+    p.print(cout);
+  }
+  catch (const std::exception& e){
+    cerr << "Error running workers" << endl;
+    cerr << e.what() << endl;
+    return FAILURE;
+  }
+  catch (...) {
+    cerr << "Caught unknown exception running workers" << endl;
+    return FAILURE;
+  }
   return SUCCESS;
 }

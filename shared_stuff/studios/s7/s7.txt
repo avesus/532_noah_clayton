@@ -1,0 +1,213 @@
+1)
+Noah Goldstein
+Clayton Knittel
+
+2)
+compare_exchange_weak automatically updates the first argument with the value of whatever atomic called it on failure. This means the while loop has the equivalent functionality to
+while !atomic_CAS(head, expec, new_val)
+	expec = head
+
+3)
+code:
+#include "s7.h"
+
+
+#define SUCCESS 0
+#define FAILURE -1
+
+
+int verbose = 0;
+int runs = 1;
+#define Version "0.1"
+
+static ArgOption args[] = {
+  // Kind, 	  Method,		name,	    reqd,  variable,		help
+  { KindOption,   Integer, 		"-v", 	    0,     &verbose, 		"Set verbosity level" },
+  { KindOption,   Integer, 		"--runs",   0,     &runs, 		"Set num runs" },
+  { KindHelp,     Help, 	"-h" },
+  { KindEnd }
+};
+static ArgDefs argp = { args, "s7", Version, NULL };
+
+using namespace std;
+
+
+/* 7.2
+   template<typename T>
+   class lock_free_stack
+   {
+   private:
+   struct node
+   {
+   T data;
+   node* next;
+   node(T const& data_):
+   data(data_)
+   {}
+   };
+   std::atomic<node*> head;
+   public:
+   void push(T const& data)
+   {
+   node* const new_node=new node(data);
+   new_node->next=head.load();
+   while(!head.compare_exchange_weak(new_node->next,new_node));
+   }
+   void pop(T& result)
+   {
+   node* old_head=head.load();
+   while(!head.compare_exchange_weak(old_head,old_head->next));
+   result=old_head->data;
+   }  
+   };
+*/
+/* 7.3 */
+template<typename T>
+class lock_free_stack
+{
+private:
+  struct node
+  {
+    std::shared_ptr<T> data;
+    node* next;
+    node(T const& data_):
+      data(std::make_shared<T>(data_))
+    {}
+  };
+  std::atomic<node*> head;
+public:
+  void push(T const& data)
+
+  {
+    node* const new_node=new node(data);
+    new_node->next=head.load();
+    while(!head.compare_exchange_weak(new_node->next,new_node));
+  }
+  std::shared_ptr<T> pop()
+  {
+    node* old_head=head.load();
+    while(old_head &&
+	  !head.compare_exchange_weak(old_head,old_head->next));
+    return old_head ? old_head->data : std::shared_ptr<T>();
+  }
+};
+
+/* 7.13
+   template<typename T>
+   class lock_free_queue
+   {
+   private:
+   struct node
+   {
+   std::shared_ptr<T> data;
+   node* next;
+   node():
+   next(nullptr)
+   {}
+   };
+   std::atomic<node*> head;
+   std::atomic<node*> tail;
+   node* pop_head()
+   {
+   node* const old_head=head.load();
+   if(old_head==tail.load())
+   {
+   return nullptr;
+   }
+   head.store(old_head->next);
+   return old_head;
+   }
+   public:
+   lock_free_queue():
+   head(new node),tail(head.load())
+   {}
+   lock_free_queue(const lock_free_queue& other)=delete;
+   lock_free_queue& operator=(const lock_free_queue& other)=delete;
+   ~lock_free_queue()
+   {
+   while(node* const old_head=head.load())
+   {
+   head.store(old_head->next);
+   delete old_head;
+   }
+   }
+   std::shared_ptr<T> pop()
+   {
+   node* old_head=pop_head();
+   if(!old_head)
+   {
+   return std::shared_ptr<T>();
+   }
+   std::shared_ptr<T> const res(old_head->data);
+   delete old_head;
+   return res;
+   }
+   void push(T new_value)
+   {
+   std::shared_ptr<T> new_data(std::make_shared<T>(new_value));
+   node* p=new node;
+   node* const old_tail=tail.load();
+   old_tail->data.swap(new_data);
+   old_tail->next=p;
+   tail.store(p);
+   }
+   };
+*/
+
+int main(int argc, char* argv[]){
+  progname = argv[0];
+  ArgParser* ap = createArgumentParser(&argp);
+  int result = parseArguments(ap, argc, argv);
+  if(result){
+    die("Error parsing arguments");
+  }
+  freeCommandLine();
+  freeArgumentParser(ap);
+  lock_free_stack<int> stack;
+  for(int i=0;i<runs;i++){
+    printf("Push %d -> %d\n", i, i);
+    stack.push(i);
+  }
+  for(int i=0;i<runs;i++){
+    printf("Pop %d  -> %d\n", i, *stack.pop());
+  }
+  return SUCCESS;
+}
+
+output:
+Push 0 -> 0
+Push 1 -> 1
+Push 2 -> 2
+Push 3 -> 3
+Push 4 -> 4
+Push 5 -> 5
+Push 6 -> 6
+Push 7 -> 7
+Push 8 -> 8
+Push 9 -> 9
+Pop 0  -> 9
+Pop 1  -> 8
+Pop 2  -> 7
+Pop 3  -> 6
+Pop 4  -> 5
+Pop 5  -> 4
+Pop 6  -> 3
+Pop 7  -> 2
+Pop 8  -> 1
+Pop 9  -> 0
+
+cmdline:
+$> ./s7 --runs 10
+
+4)
+There definetly was both some interleaving though a preference for
+threads to pop values they pushed. I ran for 50 pushes/pops per
+thread, though imagine that if that number went up more interleaving
+would take place as that would give more time for concurrency (with
+only 50 likely a majority of the 1st threads time pushing is spent
+without any concurrency due to the costs of thread creation and vice
+versa for the 2nd thread).
+
+5)
+With the version from 7.13 (7.12) there is a great deal more
+interleaving.

@@ -1,0 +1,78 @@
+1)
+Noah Goldstein
+Clayton Knittel
+
+2)
+They all appear to be lock free
+atomic_bool.is_lock_free() ->  1
+atomic_char.is_lock_free() ->  1
+atomic_schar.is_lock_free() ->  1
+atomic_uchar.is_lock_free() ->  1
+atomic_int.is_lock_free() ->  1
+atomic_uint.is_lock_free() ->  1
+atomic_short.is_lock_free() ->  1
+atomic_ushort.is_lock_free() ->  1
+atomic_long.is_lock_free() ->  1
+atomic_ulong.is_lock_free() ->  1
+atomic_llong.is_lock_free() ->  1
+atomic_ullong.is_lock_free() ->  1
+atomic_char16_t.is_lock_free() ->  1
+atomic_char32_t.is_lock_free() ->  1
+atomic_wchar_t.is_lock_free() ->  1
+atomic_int_least8_t.is_lock_free() -> 1
+atomic_uint_least8_t.is_lock_free() -> 1
+atomic_int_least16_t.is_lock_free() -> 1
+atomic_uint_least16_t.is_lock_free() -> 1
+atomic_int_least32_t.is_lock_free() -> 1
+atomic_uint_least32_t.is_lock_free() -> 1
+atomic_int_least64_t.is_lock_free() -> 1
+atomic_uint_least64_t.is_lock_free() -> 1
+atomic_int_fast8_t.is_lock_free() -> 1
+atomic_uint_fast8_t.is_lock_free() -> 1
+atomic_int_fast16_t.is_lock_free() -> 1
+atomic_uint_fast16_t.is_lock_free() -> 1
+atomic_int_fast32_t.is_lock_free() -> 1
+atomic_uint_fast32_t.is_lock_free() -> 1
+atomic_int_fast64_t.is_lock_free() -> 1
+atomic_uint_fast64_t.is_lock_free() -> 1
+atomic_intptr_t.is_lock_free() -> 1
+atomic_uintptr_t.is_lock_free() -> 1
+atomic_size_t.is_lock_free() -> 1
+atomic_ptrdiff_t.is_lock_free() -> 1
+atomic_intmax_t.is_lock_free() -> 1
+atomic_uintmax_t.is_lock_free() -> 1
+
+
+3)
+runs -> z
+1 -> 1
+10 -> 10
+100 -> 100
+1000 -> 1000
+10000 -> 10000
+100000 -> 100000
+
+4)
+runs -> z
+1 -> 1
+10 -> 10
+100 -> 100
+1000 -> 1000
+10000 -> 10000
+100000 -> 100000
+
+No change. Makes sense in that doesnt matter which thread adds first
+if all we care about is final value (seq_cst might be slower though,
+depends on hardware)
+
+4)
+runs -> z
+1 -> 1
+10 -> 10
+100 -> 100
+1000 -> 1000
+10000 -> 10000
+100000 -> 100000
+
+Again same z value, but performance felt close to seq_cst (makes sense
+as those 2 impose an ordering, relaxed does not)

@@ -1,0 +1,452 @@
+1)
+Noah Goldstein & Clayton Knittel
+
+2)
+bool isPrime(uint n){
+  if(n > 2 && (n%2) == 0){
+    return false;
+  }
+  int sqrt_n = sqrt((double)n) + 1;
+  for(int i=3; i<sqrt_n; i+=2){
+    if((n%i) == 0){
+      return false;
+    }
+  }
+  return true;
+}
+
+noah[06:00:08]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s11$ ./s11 -p 25
+1 -> true
+2 -> true
+3 -> true
+4 -> false
+5 -> true
+6 -> false
+7 -> true
+8 -> false
+9 -> false
+10 -> false
+11 -> true
+12 -> false
+13 -> true
+14 -> false
+15 -> false
+16 -> false
+17 -> true
+18 -> false
+19 -> true
+20 -> false
+21 -> false
+22 -> false
+23 -> true
+24 -> false
+
+
+3)
+noah[06:36:07]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s11$ ./s11 -p 150
+2 -> true
+10 -> false
+11 -> true
+12 -> false
+13 -> true
+14 -> false
+3 -> true
+9 -> false
+17 -> true
+18 -> false
+19 -> true
+20 -> false
+21 -> false
+22 -> false
+23 -> true
+8 -> false
+15 -> false
+25 -> false
+26 -> false
+5 -> true
+28 -> false
+29 -> true
+30 -> false
+31 -> true
+32 -> false
+33 -> false
+34 -> false
+35 -> false
+36 -> false
+37 -> true
+38 -> false
+39 -> false
+40 -> false
+41 -> true
+42 -> false
+43 -> true
+44 -> false
+27 -> false
+46 -> false
+47 -> true
+48 -> false
+49 -> false
+50 -> false
+51 -> false
+52 -> false
+53 -> true
+54 -> false
+55 -> false
+56 -> false
+57 -> false
+58 -> false
+59 -> true
+60 -> false
+61 -> true
+62 -> false
+63 -> false
+64 -> false
+65 -> false
+66 -> false
+67 -> true
+68 -> false
+69 -> false
+70 -> false
+71 -> true
+72 -> false
+73 -> true
+74 -> false
+75 -> false
+76 -> false
+77 -> false
+78 -> false
+79 -> true
+80 -> false
+81 -> false
+82 -> false
+83 -> true
+84 -> false
+85 -> false
+86 -> false
+87 -> false
+88 -> false
+89 -> true
+90 -> false
+91 -> false
+92 -> false
+93 -> false
+94 -> false
+95 -> false
+96 -> false
+97 -> true
+98 -> false
+99 -> false
+100 -> false
+101 -> true
+102 -> false
+103 -> true
+104 -> false
+105 -> false
+106 -> false
+107 -> true
+108 -> false
+109 -> true
+110 -> false
+111 -> false
+112 -> false
+113 -> true
+114 -> false
+115 -> false
+116 -> false
+117 -> false
+118 -> false
+119 -> false
+120 -> false
+121 -> false
+122 -> false
+123 -> false
+124 -> false
+125 -> false
+126 -> false
+127 -> true
+128 -> false
+129 -> false
+130 -> false
+131 -> true
+132 -> false
+133 -> false
+134 -> false
+135 -> false
+136 -> false
+137 -> true
+138 -> false
+139 -> true
+140 -> false
+141 -> false
+142 -> false
+143 -> false
+144 -> false
+145 -> false
+146 -> false
+147 -> false
+148 -> false
+149 -> true
+6 -> false
+4 -> false
+7 -> true
+24 -> false
+16 -> false
+45 -> false
+
+#define print_bool(X) (X) ? "true" : "false"
+
+bool isPrime(uint n){
+  if(n > 2 && (n%2) == 0){
+    return false;
+  }
+  int sqrt_n = sqrt((double)n) + 1;
+  for(int i=3; i<sqrt_n; i+=2){
+    if((n%i) == 0){
+      return false;
+    }
+  }
+  return true;
+}
+
+void sync_que::push_num(const uint &v){
+  std::lock_guard<std::mutex> lock(this->m);
+  this->que.push(v);
+  cv.notify_all();
+}
+
+uint sync_que::pop_num(){
+  std::unique_lock<std::mutex> lock(this->m);
+  cv.wait(lock, [&] { return (this->que.size()); });
+  uint ret = this->que.front();
+  this->que.pop();
+  return ret;
+}
+
+
+void worker_thread::do_work(){
+  char buf[16] = "";
+  while(!done){
+    uint got = this->sq->pop_num();
+    sprintf(buf, "%d -> %s", got, print_bool(isPrime(got)));
+    this->sp->print(std::string(buf));
+  }
+}
+
+void worker_thread::start(){
+  this->me = new std::thread(&worker_thread::do_work, this);
+}
+
+void worker_thread::stop(){
+  this->done = 1;
+  this->me->join();
+}
+
+
+void sync_printer::print(std::string to_print){
+  std::lock_guard<std::mutex> lock(this->m);
+  this->my_os << to_print << std::endl;
+}
+
+
+
+4)
+Leader: 0 -> 5
+2 -> true
+Leader: 5 -> 6
+4 -> false
+Leader: 6 -> 3
+3 -> true
+5 -> true
+Leader: 3 -> 4
+6 -> false
+7 -> true
+8 -> false
+9 -> false
+10 -> false
+11 -> true
+12 -> false
+13 -> true
+14 -> false
+15 -> false
+16 -> false
+17 -> true
+Leader: 4 -> 1
+18 -> false
+Leader: 1 -> 4
+19 -> true
+Leader: 4 -> 3
+20 -> false
+Leader: 3 -> 5
+21 -> false
+Leader: 5 -> 0
+22 -> false
+Leader: 0 -> 6
+23 -> true
+Leader: 6 -> 1
+24 -> false
+Leader: 1 -> 3
+25 -> false
+Leader: 3 -> 5
+26 -> false
+Leader: 5 -> 0
+27 -> false
+Leader: 0 -> 6
+28 -> false
+Leader: 6 -> 4
+29 -> true
+Leader: 4 -> 3
+30 -> false
+Leader: 3 -> 7
+31 -> true
+Leader: 7 -> 5
+32 -> false
+Leader: 5 -> 0
+33 -> false
+Leader: 0 -> 3
+34 -> false
+Leader: 3 -> 7
+35 -> false
+Leader: 7 -> 5
+36 -> false
+Leader: 5 -> 0
+37 -> true
+Leader: 0 -> 1
+38 -> false
+Leader: 1 -> 0
+39 -> false
+Leader: 0 -> 6
+40 -> false
+Leader: 6 -> 7
+41 -> true
+Leader: 7 -> 5
+42 -> false
+Leader: 5 -> 3
+43 -> true
+Leader: 3 -> 2
+44 -> false
+45 -> false
+46 -> false
+Leader: 2 -> 4
+47 -> true
+Leader: 4 -> 0
+48 -> false
+Leader: 0 -> 6
+49 -> false
+Leader: 6 -> 7
+50 -> false
+Leader: 7 -> 5
+51 -> false
+Leader: 5 -> 3
+52 -> false
+53 -> true
+Leader: 3 -> 1
+54 -> false
+Leader: 1 -> 2
+55 -> false
+Leader: 2 -> 4
+56 -> false
+Leader: 4 -> 0
+57 -> false
+Leader: 0 -> 6
+58 -> false
+Leader: 6 -> 7
+59 -> true
+Leader: 7 -> 5
+60 -> false
+61 -> true
+Leader: 5 -> 1
+62 -> false
+Leader: 1 -> 2
+63 -> false
+Leader: 2 -> 4
+64 -> false
+65 -> false
+66 -> false
+67 -> true
+68 -> false
+Leader: 4 -> 0
+69 -> false
+Leader: 0 -> 6
+70 -> false
+Leader: 6 -> 7
+71 -> true
+Leader: 7 -> 5
+72 -> false
+Leader: 5 -> 3
+73 -> true
+Leader: 3 -> 1
+74 -> false
+Leader: 1 -> 2
+75 -> false
+76 -> false
+Leader: 2 -> 4
+77 -> false
+Leader: 4 -> 6
+78 -> false
+79 -> true
+Leader: 6 -> 7
+80 -> false
+Leader: 7 -> 5
+81 -> false
+82 -> false
+83 -> true
+84 -> false
+85 -> false
+86 -> false
+Leader: 5 -> 3
+87 -> false
+Leader: 3 -> 4
+88 -> false
+Leader: 4 -> 6
+89 -> true
+Leader: 6 -> 7
+90 -> false
+Leader: 7 -> 5
+91 -> false
+Leader: 5 -> 6
+92 -> false
+Leader: 6 -> 7
+93 -> false
+94 -> false
+
+With file:
+Leader: 7 -> 6
+70967 -> false
+Leader: 6 -> 0
+70968 -> false
+Leader: 0 -> 7
+70969 -> true
+Leader: 7 -> 3
+70970 -> false
+Leader: 3 -> 2
+70971 -> false
+Leader: 2 -> 4
+70972 -> false
+70973 -> false
+Leader: 4 -> 0
+70974 -> false
+70975 -> false
+Leader: 0 -> 1
+70976 -> false
+Leader: 1 -> 6
+70977 -> false
+Leader: 6 -> 3
+70978 -> false
+Leader: 3 -> 2
+70979 -> true
+Leader: 2 -> 4
+70980 -> false
+Leader: 4 -> 3
+70981 -> true
+Leader: 3 -> 4
+70982 -> false
+Leader: 4 -> 5
+70983 -> false
+70984 -> false
+Leader: 5 -> 1
+70985 -> false
+Leader: 1 -> 5
+70986 -> false
+Leader: 5 -> 1
+
+Its hyper responsive. Reading from stdin (piped or manually) is much slower than reading integers from for loop. This means that the leader constantly changes.

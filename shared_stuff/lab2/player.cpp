@@ -2,7 +2,8 @@
 #include "line.h"
 
 
-void Player::read() {
+void Player::read(string name, string file) {
+    ifstream ifs(file);
 	string line_str;
 	line l;
 	while (getline(ifs, line_str)) {
@@ -28,17 +29,24 @@ void Player::read() {
 	}
 }
 
-void Player::act() {
+void Player::act(size_t frag_num) {
 	for (auto it = lines.begin(); it != lines.end(); it++) {
-	  p.recite(it, 0);
+	  p.recite(it, frag_num);
 	}
 	p.player_exit();
 }
 
-void Player::enter() {
+void Player::work(sync_que &q) {
+    while (1) {
+        p_info p = q.pop();
+        read(p.name, p.file);
+        act(p.frag_num);
+    }
+}
+
+void Player::enter(sync_que &q) {
 	thread th([&] {
-		this->read();
-		this->act();
+		this->work(q);
 		});
 	this->t = std::move(th);
 }

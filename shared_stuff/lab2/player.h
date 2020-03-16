@@ -7,6 +7,7 @@
 
 #include "line.h"
 #include "play.h"
+#include "sync_que.h"
 
 using namespace std;
 
@@ -22,13 +23,15 @@ class Player {
 	thread t;
 
 public:
-	Player(Play& p, const string &name, ifstream &ifs) : p(p), name(name), ifs(std::move(ifs)) {}
+	Player(Play& p) : p(p) {}
 
-	void read();
+	void read(string name, string file);
 
-	void act();
+	void act(size_t frag_num);
 
-	void enter();
+    void work(sync_que &q);
+
+	void enter(sync_que &q);
 
 	bool exit();
 };

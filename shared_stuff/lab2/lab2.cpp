@@ -36,8 +36,8 @@ int main(int argc, char* argv[]){
         return usage_main(argv[program_name]);
     }
 
+    cout << endl;
     string config_file = argv[input_file];
-    fprintf(stderr, "opening: %s", config_file.c_str());
     Director d(config_file);
     d.cue();
 

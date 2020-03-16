@@ -47,9 +47,15 @@ public:
 
     void set_on_stage(int32_t n) {
         on_stage = n;
+	n_passed = 0;
     }
     void reset_counter(){
+      if (*it != "") {
+	cout << *it << endl;
+      }
+
       this->line_counter = 1;
+      this->cur_char = "";
     }
     int32_t get_on_stage() {
         return on_stage;
@@ -71,7 +77,6 @@ public:
         if (n_passed == --on_stage && on_stage > 0) {
             // nobody could read this line, need to skip it
             cerr << endl << "****** line " << line_counter << " skipped ******";
-            line_counter++;
             n_passed = 0;
             cv.notify_all();
         }
@@ -83,9 +88,9 @@ public:
         else if (on_stage == 0) {
             scene_fragment_counter++;
             if (it != names.end()) {
-                if (*it != "") {
-                    cout << *it << endl;
-                }
+	      cout << endl;
+	      cout << endl;
+	      cout << endl;
                 it++;
                 cv.notify_all();
             }

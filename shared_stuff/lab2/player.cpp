@@ -3,8 +3,8 @@
 
 
 void Player::read(string name, string file) {
+  this->lines.clear();
     ifstream ifs(file);
-    fprintf(stderr, "Opened: %s -> %s\n", name.c_str(), file.c_str());
 	string line_str;
 	line l;
 	while (getline(ifs, line_str)) {
@@ -25,24 +25,12 @@ void Player::read(string name, string file) {
 		// now get remaining text from the line
 		getline(is, line_str);
 		l.msg += line_str;
-		l.character = this->name;
-		fprintf(stderr,
-			"Inserting lines {\n"
-			"num: %d\n"
-			"char: %s\n"
-			"msg: %s\n",
-			l.linen,
-			l.character.c_str(),
-			l.msg.c_str());
-
-
-		
+		l.character = name;
 		lines.insert(l);
 	}
 }
 
 void Player::act(size_t frag_num) {
-  fprintf(stderr, "acting on frag(%zu)\n", frag_num);
 	for (auto it = lines.begin(); it != lines.end(); it++) {
 	  
 	  p.recite(it, frag_num);
@@ -56,13 +44,8 @@ void Player::work(sync_que &q, condition_variable &cv_dir) {
 	if(q.done){
 	  break;
 	}
-	fprintf(stderr, "popped: {%zu\n\t%s\n\t%s\n}\n",
-		p.frag_num,
-		p.name.c_str(),
-		p.file.c_str());
         read(p.name, p.file);
         act(p.frag_num);
-	
 	cv_dir.notify_all();
 	
     }

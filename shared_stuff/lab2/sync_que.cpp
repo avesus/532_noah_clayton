@@ -21,8 +21,8 @@ void sync_que::push(p_info p) {
 
 p_info sync_que::pop() {
     std::unique_lock<std::mutex> lock(this->m);
-    cv.wait(lock, [&] { return (this->que.size()); });
-    if(this->done){
+    cv.wait(lock, [&] { return (this->que.size() || this->done); });
+    if(this->done && this->que.size() == 0){
       const p_info empty_p;
       return empty_p;
     }

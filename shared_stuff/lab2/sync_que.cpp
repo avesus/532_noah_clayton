@@ -10,7 +10,9 @@
 
 #include "helpers/opt.h"
 
+
 void sync_que::push(p_info p) {
+
     std::lock_guard<mutex> lock(this->m);
     this->que.push(p);
     cv.notify_all();
@@ -20,6 +22,10 @@ void sync_que::push(p_info p) {
 p_info sync_que::pop() {
     std::unique_lock<std::mutex> lock(this->m);
     cv.wait(lock, [&] { return (this->que.size()); });
+    if(this->done){
+      const p_info empty_p;
+      return empty_p;
+    }
     p_info ret = que.front();
     que.pop();
     return ret;

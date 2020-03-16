@@ -21,14 +21,6 @@ static int usage_main(const char* program_name) {
 
 
 
-static string get_file_name(const string& prefix, string char_name) {
-    // replace all spaces with underscores
-    std::replace(char_name.begin(), char_name.end(), ' ', '_');
-    if (prefix.size() == 0) {
-        return char_name;
-    }
-    return prefix + "/" + char_name;
-}
 
 
 #define SUCCESS 0
@@ -45,7 +37,7 @@ int main(int argc, char* argv[]){
     }
 
     string config_file = argv[input_file];
-
+    fprintf(stderr, "opening: %s", config_file.c_str());
     Director d(config_file);
     d.cue();
 

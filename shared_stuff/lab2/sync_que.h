@@ -16,24 +16,28 @@
 using namespace std;
 
 struct p_info {
-    string name;
-    size_t frag_num;
-    string file;
+  string name;
+  size_t frag_num;
+  string file;
+  p_info() {}
 };
 
 
 class sync_que {
-    mutex m;
-    condition_variable cv;
-    queue<p_info> que;
-    
-public:
-    void push(p_info p);
-    p_info pop();
 
-    size_t size() {
-        return que.size();
-    }
+  mutex m;
+
+  queue<p_info> que;
+    
+ public:
+  condition_variable cv;
+  volatile uint64_t done = 0;
+  void push(p_info p);
+  p_info pop();
+
+  size_t size() {
+    return que.size();
+  }
 };
 
 

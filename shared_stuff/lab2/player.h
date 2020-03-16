@@ -29,9 +29,9 @@ public:
 
 	void act(size_t frag_num);
 
-    void work(sync_que &q);
+	void work(sync_que &q, condition_variable &cv_dir);
 
-	void enter(sync_que &q);
+	void enter(sync_que &q, condition_variable &cv_dir);
 
 	bool exit();
 };

@@ -39,7 +39,7 @@ class Play {
 public:
 
     Play(const vector<string> &names): names(names), it(names.begin()),
-            line_counter(1), scene_fragment_counter(1), on_stage(0),
+            line_counter(1), scene_fragment_counter(0), on_stage(0),
             n_passed(0) {}
 
 
@@ -48,7 +48,9 @@ public:
     void set_on_stage(int32_t n) {
         on_stage = n;
     }
-
+    void reset_counter(){
+      this->line_counter = 1;
+    }
     int32_t get_on_stage() {
         return on_stage;
     }

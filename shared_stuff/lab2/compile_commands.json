@@ -7,48 +7,6 @@
             "-O0",
             "-std=c++11",
             "-o",
-            ".obj/helpers/opt.o",
-            "helpers/opt.cpp"
-        ],
-        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "helpers/opt.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-g",
-            "-O0",
-            "-std=c++11",
-            "-o",
-            ".obj/helpers/timing.o",
-            "helpers/timing.cpp"
-        ],
-        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "helpers/timing.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-g",
-            "-O0",
-            "-std=c++11",
-            "-o",
-            ".obj/lab2.o",
-            "lab2.cpp"
-        ],
-        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "lab2.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-g",
-            "-O0",
-            "-std=c++11",
-            "-o",
             ".obj/helpers/bits.o",
             "helpers/bits.cpp"
         ],
@@ -77,11 +35,25 @@
             "-O0",
             "-std=c++11",
             "-o",
-            ".obj/helpers/locks.o",
-            "helpers/locks.cpp"
+            ".obj/helpers/arg.o",
+            "helpers/arg.cpp"
         ],
         "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "helpers/locks.cpp"
+        "file": "helpers/arg.cpp"
+    },
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-g",
+            "-O0",
+            "-std=c++11",
+            "-o",
+            ".obj/sync_que.o",
+            "sync_que.cpp"
+        ],
+        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
+        "file": "sync_que.cpp"
     },
     {
         "arguments": [
@@ -105,11 +77,53 @@
             "-O0",
             "-std=c++11",
             "-o",
+            ".obj/lab2.o",
+            "lab2.cpp"
+        ],
+        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
+        "file": "lab2.cpp"
+    },
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-g",
+            "-O0",
+            "-std=c++11",
+            "-o",
+            ".obj/helpers/locks.o",
+            "helpers/locks.cpp"
+        ],
+        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
+        "file": "helpers/locks.cpp"
+    },
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-g",
+            "-O0",
+            "-std=c++11",
+            "-o",
             ".obj/player.o",
             "player.cpp"
         ],
         "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
         "file": "player.cpp"
+    },
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-g",
+            "-O0",
+            "-std=c++11",
+            "-o",
+            ".obj/helpers/timing.o",
+            "helpers/timing.cpp"
+        ],
+        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
+        "file": "helpers/timing.cpp"
     },
     {
         "arguments": [
@@ -133,10 +147,10 @@
             "-O0",
             "-std=c++11",
             "-o",
-            ".obj/helpers/arg.o",
-            "helpers/arg.cpp"
+            ".obj/helpers/opt.o",
+            "helpers/opt.cpp"
         ],
         "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "helpers/arg.cpp"
+        "file": "helpers/opt.cpp"
     }
 ]

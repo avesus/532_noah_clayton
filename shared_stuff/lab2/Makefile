@@ -27,6 +27,8 @@ all: $(EXE)
 
 $(EXE): $(OBJ)
 	$(CC) $(OBJ) -o $@ $(LIBS) $(LDFLAGS)
+	cp play_files/*.txt .
+
 
 $(ODIR)/%.o: $(SDIR)/%.cpp
 	$(CC) $(CFLAGS) $< -o $@ 
@@ -35,6 +37,8 @@ $(ODIR)/%.o: $(SDIR)/%.cpp
 
 .PHONY: clean
 clean:
+	rm -f *~
+	rm -f *.txt
 	find $(ODIR) -type f -name '*.[od]' -delete
 	rm -f $(EXE) $(TEXES)
 

@@ -21,53 +21,11 @@
             "-O0",
             "-std=c++11",
             "-o",
-            ".obj/helpers/util.o",
-            "helpers/util.cpp"
+            ".obj/helpers/opt.o",
+            "helpers/opt.cpp"
         ],
         "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "helpers/util.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-g",
-            "-O0",
-            "-std=c++11",
-            "-o",
-            ".obj/helpers/arg.o",
-            "helpers/arg.cpp"
-        ],
-        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "helpers/arg.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-g",
-            "-O0",
-            "-std=c++11",
-            "-o",
-            ".obj/sync_que.o",
-            "sync_que.cpp"
-        ],
-        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "sync_que.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-g",
-            "-O0",
-            "-std=c++11",
-            "-o",
-            ".obj/play.o",
-            "play.cpp"
-        ],
-        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "play.cpp"
+        "file": "helpers/opt.cpp"
     },
     {
         "arguments": [
@@ -91,6 +49,34 @@
             "-O0",
             "-std=c++11",
             "-o",
+            ".obj/lib/sync_que.o",
+            "lib/sync_que.cpp"
+        ],
+        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
+        "file": "lib/sync_que.cpp"
+    },
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-g",
+            "-O0",
+            "-std=c++11",
+            "-o",
+            ".obj/helpers/arg.o",
+            "helpers/arg.cpp"
+        ],
+        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
+        "file": "helpers/arg.cpp"
+    },
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-g",
+            "-O0",
+            "-std=c++11",
+            "-o",
             ".obj/helpers/locks.o",
             "helpers/locks.cpp"
         ],
@@ -105,11 +91,11 @@
             "-O0",
             "-std=c++11",
             "-o",
-            ".obj/player.o",
-            "player.cpp"
+            ".obj/lib/play.o",
+            "lib/play.cpp"
         ],
         "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "player.cpp"
+        "file": "lib/play.cpp"
     },
     {
         "arguments": [
@@ -119,11 +105,11 @@
             "-O0",
             "-std=c++11",
             "-o",
-            ".obj/helpers/timing.o",
-            "helpers/timing.cpp"
+            ".obj/lib/player.o",
+            "lib/player.cpp"
         ],
         "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "helpers/timing.cpp"
+        "file": "lib/player.cpp"
     },
     {
         "arguments": [
@@ -147,10 +133,24 @@
             "-O0",
             "-std=c++11",
             "-o",
-            ".obj/helpers/opt.o",
-            "helpers/opt.cpp"
+            ".obj/helpers/timing.o",
+            "helpers/timing.cpp"
         ],
         "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "helpers/opt.cpp"
+        "file": "helpers/timing.cpp"
+    },
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-g",
+            "-O0",
+            "-std=c++11",
+            "-o",
+            ".obj/helpers/util.o",
+            "helpers/util.cpp"
+        ],
+        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
+        "file": "helpers/util.cpp"
     }
 ]

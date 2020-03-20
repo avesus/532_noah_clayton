@@ -1,7 +1,8 @@
 #include "player.h"
-#include "line.h"
 
 
+
+//reads config file and inserts all lines to players data structure
 void Player::read(string name, string file) {
   this->lines.clear();
     ifstream ifs(file);
@@ -23,21 +24,32 @@ void Player::read(string name, string file) {
 			continue;
 		}
 		// now get remaining text from the line
-		getline(is, line_str);
-		l.msg += line_str;
+
+		if(!(is.eof())){
+		  getline(is, line_str);
+		  l.msg += line_str;
+		}
+
 		l.character = name;
 		lines.insert(l);
 	}
 }
 
+
+//recites each of the lines for this fragment number of the player
 void Player::act(size_t frag_num) {
 	for (auto it = lines.begin(); it != lines.end(); it++) {
 	  
 	  p.recite(it, frag_num);
 	}
+
+	//exit when lines are done (as if there is no more to acting
+	//than reciting lines... where is the expressiveness!)
 	p.player_exit();
 }
 
+//while !done (i.e directory finds last fragment is done) continue
+//trying to pop parts of the que 
 void Player::work(sync_que &q, condition_variable &cv_dir) {
     while (!q.done) {
         p_info p = q.pop();
@@ -51,6 +63,8 @@ void Player::work(sync_que &q, condition_variable &cv_dir) {
     }
 }
 
+
+//startup a new player thread
 void Player::enter(sync_que &q, condition_variable &cv_dir) {
 	thread th([&] {
 	    this->work(q, cv_dir);
@@ -58,6 +72,7 @@ void Player::enter(sync_que &q, condition_variable &cv_dir) {
 	this->t = std::move(th);
 }
 
+//quit a player thread
 bool Player::exit() {
 	if (this->t.joinable()) {
 		t.join();

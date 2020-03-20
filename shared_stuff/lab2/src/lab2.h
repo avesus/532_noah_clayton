@@ -23,5 +23,6 @@
 #include "helpers/arg.h"
 #include "helpers/bits.h"
 #include "helpers/timing.h"
-#include "play.h"
-#include "player.h"
+#include "lib/play.h"
+#include "lib/player.h"
+#include "lib/director.h"

@@ -11,7 +11,7 @@
 #include <cstring>
 
 #include "sync_que.h"
-#include "helpers/opt.h"
+#include "../helpers/opt.h"
 #include "player.h"
 
 using namespace std;

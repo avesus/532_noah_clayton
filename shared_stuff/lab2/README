@@ -1,0 +1,99 @@
+CSE 532 Spring 2020 Lab 2
+
+1.1) Names & Email
+{
+"Noah Goldstein":"goldstein.n@wustl.edu",
+"Clayton Knittel":"c.j.knittel@wustl.edu"
+}
+
+1.2) Design
+Directories:
+src/
+	lab2.cpp	Simply stores the main. Its only job is the
+			read the commandline arguments, check that
+			they are valid, create and start the
+			directory, and catch exceptions.
+
+lib/
+	director.cpp	Wrapper function that reads the scene file and
+			creates appropriate players with the frame
+			files. Iterates through the frames of the
+			scene and sets the proper number of workers
+			per frame to call recite within play.
+
+	player.cpp	Class responsible popping characters from a
+			shared work que, and upon succesful pop, read
+			the lines for the given player and send them
+			to recite in play
+
+	play.cpp	Class that coordinates multiple parallel
+			players to print lines in the proper
+			order. This include situations where no player
+			has the proper line
+
+	sync_que.cpp	A thread safe que that is used to assign
+			characters to a given player. The director
+			class will push config files to the que and
+			notify players to pop. The director can also
+			use this to notify all the player threads that
+			the scene is done which will cause them to
+			join and exit.
+
+helpers/
+	*		These are various helper functions. Most are
+                        not used. We simply import the library into
+                        all projects as more often than not some of
+                        the wrappers are useful.
+
+play_files/
+	*		Contains all the .txt files for
+                        testing/running the hamlet scenes. Make will
+                        move them all the the outside directory so
+                        that the code can be run. Make clean will
+                        delete them from outside directory. This is
+                        purely for cleanliness.
+			
+1.3) Design Decisions
+
+Very few meaningful design decisions came up during this lab, as most
+of the tools and code we used had already existed from previous
+assignments. For example we had effectively achieved all the
+coordinating and error checking required for managing players within a
+frame in lab1 to recover from errors. The main actual decision was to
+use a thread safe que for managing the director and players. We chose
+the parallel que as we knew pushing/popping character config files was
+NOT on the critical path (recite is where most of the work/time takes
+place) so we knew that a simple design would suffice. We also knew we
+specifically wanted the condition variable/notify method of
+coordinating as we only needed to send information director -> player,
+wanted to be to easily control the execution of players via the
+directory (for example indicate scene completion), and wanted low
+overhead method on unused workers. The condition variable notify all
+method accomplishes all this.
+
+1.4) Wrapper Facades
+
+The only wrapper facades we used were the sync_que which is a standard
+thread safe que with multiple poppers and a single pusher. The
+rational for this choice is above. The only exntesion we added was the
+functionality for the director thread to signal completion to all the
+players. This is done by ensuring all players are currently waiting on
+the CV, then setting done and waking this all up which causes them to
+exit allowing their threads to be cleaned up.
+
+1.5) Insights & Observations
+
+Race conditions are tricky :/
+
+
+
+2.1) Unzip & Build & Run
+
+$> unzip lab2.zip
+$> cd lab2
+$> make clean; make
+$> ./lab2 <hamlet scene file>
+
+example runs:
+$> ./lab2 partial_hamlet_act_ii_script.txt
+$> ./lab2 partial_hamlet_act_ii_scene_1_script.txt 

@@ -5,8 +5,8 @@ Director::Director(const string &name, uint32_t min_players) : i(name) {
       throw std::runtime_error("couldn't open file for reading");
     }
     string buf;
-    int max = 0, prev = 0;
-    int scene = 0;
+    uint32_t max = 0, prev = 0, scene = 0;
+    
     while (getline(i, buf)) {
 
       //case of new scene

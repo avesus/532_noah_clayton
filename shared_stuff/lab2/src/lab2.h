@@ -16,13 +16,13 @@
 #include <map>
 
 
-#include "helpers/locks.h"
-#include "helpers/temp.h"
-#include "helpers/opt.h"
-#include "helpers/util.h"
-#include "helpers/arg.h"
-#include "helpers/bits.h"
-#include "helpers/timing.h"
-#include "lib/play.h"
-#include "lib/player.h"
-#include "lib/director.h"
+#include "../helpers/locks.h"
+#include "../helpers/temp.h"
+#include "../helpers/opt.h"
+#include "../helpers/util.h"
+#include "../helpers/arg.h"
+#include "../helpers/bits.h"
+#include "../helpers/timing.h"
+#include "../lib/play.h"
+#include "../lib/player.h"
+#include "../lib/director.h"

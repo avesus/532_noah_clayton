@@ -2,7 +2,7 @@
 
 void lb_readLock(void** ptr) {
   unsigned long expec =(unsigned long)(*ptr);
-  while(expec&lb_write_locked == lb_write_locked){
+  while((expec&lb_write_locked) == lb_write_locked){
     do_sleep;
     expec =(unsigned long)(*ptr);
   } 
@@ -13,7 +13,7 @@ void lb_readLock(void** ptr) {
 				   1, __ATOMIC_RELAXED, __ATOMIC_RELAXED)){
     do_sleep;
     expec =(unsigned long)(*ptr);
-    while(expec&lb_write_locked == lb_write_locked){
+    while((expec&lb_write_locked) == lb_write_locked){
       do_sleep;
       expec =(unsigned long)(*ptr);
     }
@@ -66,7 +66,7 @@ void hb_readLock(void** ptr) {
 				   1, __ATOMIC_RELAXED, __ATOMIC_RELAXED)){
     do_sleep;
     expec =(unsigned long)(*ptr);
-    while((expec>>highBits)&hb_write_locked == hb_write_locked){
+    while(((expec>>highBits)&hb_write_locked) == hb_write_locked){
       do_sleep;
       expec =(unsigned long)(*ptr);
     }

@@ -18,8 +18,8 @@ enum {
 
 //Prints usage if arguments are improper
 static int usage_main(const char* program_name) {
-    cout << "Usage: " << program_name << " <input_file>" << endl;
-    return wrong_num_cmd_args;
+  std::cout << "Usage: " << program_name << " <input_file>" << std::endl;
+  return wrong_num_cmd_args;
 }
 
 
@@ -44,10 +44,24 @@ int main(int argc, char* argv[]){
     string config_file = argv[input_file];
 
     //create directory
-    Director d(config_file);
+    try {
+      Director d(config_file);
+      
+      d.cue();
+    }
+    catch (const exception& e){
+      cerr << "Error in startup\n" << endl;
+      cerr << e.what() << endl;
+      return FAILURE;
+    }
+    catch(...) {
+      errdie("Error instantiating director."
+	     " Unable to proceed."
+	     " Check config file to ensure its valid\n");
+    }
 
     //cue directory to start (i.e start actually reciting play)
-    d.cue();
+
 
     return SUCCESS;
 }

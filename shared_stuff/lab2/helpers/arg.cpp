@@ -161,6 +161,9 @@ usage(const char* pname, ArgParser* ap)
 
       case Help:
 	break;
+      default:
+	errdie("Something went wrong\n");
+	break;
       }
       fprintf(stderr, "\n");
       i++;
@@ -385,7 +388,6 @@ parseArguments(ArgParser* ap, int argc, char**argv)
 
   // process args
   if (verbose) fprintf(stderr, "Processing args for %s: %d\n", pname, argc);
-  int maxarg = argc;
   int i;
   bool optionsPossible = true;
   for (i=0; (i<argc)&&optionsPossible; i++) {

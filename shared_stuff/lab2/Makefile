@@ -1,4 +1,4 @@
-CFLAGS=-c -g -O0 -std=c++11 
+CFLAGS=-c -g -O0 -std=c++11 -Wall -Werror
 LDFLAGS=-lpthread
 
 # name of c file containing main method

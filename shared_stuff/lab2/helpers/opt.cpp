@@ -5,7 +5,7 @@ void fast_memset(void* loc, size_t val, size_t len){
   size_t len_8 = (len>>3);
   
   unsigned long* loc_ul = (unsigned long*)loc;
-  int i;
+  uint32_t i;
   for(i=0;i<len_8;i++){
     loc_ul[i] = val;
   }
@@ -22,7 +22,7 @@ void fast_bytecopy(void* dst, void* src, size_t len){
   unsigned long* dst_ul = (unsigned long*)dst;
   unsigned long* src_ul = (unsigned long*)src;
   size_t len_8 = len>>3;
-  int i=0;
+  uint32_t i=0;
   
   for(i=0;i<len_8;i++){
     dst_ul[i]=src_ul[i];
@@ -38,7 +38,7 @@ void fast_bytecopy(void* dst, void* src, size_t len){
 int fast_bytecmp_u(const void* a, const void* b, size_t len){
   unsigned long* a_ul = (unsigned long*)a;
   unsigned long* b_ul = (unsigned long*)b;
-  int i;
+  uint32_t i;
   size_t len_8 = len>>3;
   for(i=0;i<len_8;i++){
     if(a_ul[i]!=b_ul[i]){
@@ -61,7 +61,7 @@ int fast_bytecmp_u(const void* a, const void* b, size_t len){
 int fast_bytecmp(const void* a, const void* b, size_t len){
   long* a_ul = (long*)a;
   long* b_ul = (long*)b;
-  int i;
+  uint32_t i;
   size_t len_8 = len>>3;
   for(i=0;i<len_8;i++){
     if(a_ul[i]!=b_ul[i]){

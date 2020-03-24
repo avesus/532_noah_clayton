@@ -6,12 +6,15 @@
             "-g",
             "-O0",
             "-std=c++11",
+            "-Wall",
+            "-Werror",
+            "-ftemplate-depth=1024",
             "-o",
-            ".obj/helpers/bits.o",
-            "helpers/bits.cpp"
+            ".obj/lib/director.o",
+            "lib/director.cpp"
         ],
         "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "helpers/bits.cpp"
+        "file": "lib/director.cpp"
     },
     {
         "arguments": [
@@ -20,12 +23,15 @@
             "-g",
             "-O0",
             "-std=c++11",
+            "-Wall",
+            "-Werror",
+            "-ftemplate-depth=1024",
             "-o",
-            ".obj/helpers/opt.o",
-            "helpers/opt.cpp"
+            ".obj/src/lab2.o",
+            "src/lab2.cpp"
         ],
         "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "helpers/opt.cpp"
+        "file": "src/lab2.cpp"
     },
     {
         "arguments": [
@@ -34,20 +40,9 @@
             "-g",
             "-O0",
             "-std=c++11",
-            "-o",
-            ".obj/lab2.o",
-            "lab2.cpp"
-        ],
-        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "lab2.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-g",
-            "-O0",
-            "-std=c++11",
+            "-Wall",
+            "-Werror",
+            "-ftemplate-depth=1024",
             "-o",
             ".obj/lib/sync_que.o",
             "lib/sync_que.cpp"
@@ -62,6 +57,9 @@
             "-g",
             "-O0",
             "-std=c++11",
+            "-Wall",
+            "-Werror",
+            "-ftemplate-depth=1024",
             "-o",
             ".obj/helpers/arg.o",
             "helpers/arg.cpp"
@@ -76,34 +74,9 @@
             "-g",
             "-O0",
             "-std=c++11",
-            "-o",
-            ".obj/helpers/locks.o",
-            "helpers/locks.cpp"
-        ],
-        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "helpers/locks.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-g",
-            "-O0",
-            "-std=c++11",
-            "-o",
-            ".obj/lib/play.o",
-            "lib/play.cpp"
-        ],
-        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "lib/play.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-g",
-            "-O0",
-            "-std=c++11",
+            "-Wall",
+            "-Werror",
+            "-ftemplate-depth=1024",
             "-o",
             ".obj/lib/player.o",
             "lib/player.cpp"
@@ -118,20 +91,9 @@
             "-g",
             "-O0",
             "-std=c++11",
-            "-o",
-            ".obj/helpers/temp.o",
-            "helpers/temp.cpp"
-        ],
-        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
-        "file": "helpers/temp.cpp"
-    },
-    {
-        "arguments": [
-            "c++",
-            "-c",
-            "-g",
-            "-O0",
-            "-std=c++11",
+            "-Wall",
+            "-Werror",
+            "-ftemplate-depth=1024",
             "-o",
             ".obj/helpers/timing.o",
             "helpers/timing.cpp"
@@ -146,6 +108,94 @@
             "-g",
             "-O0",
             "-std=c++11",
+            "-Wall",
+            "-Werror",
+            "-ftemplate-depth=1024",
+            "-o",
+            ".obj/helpers/bits.o",
+            "helpers/bits.cpp"
+        ],
+        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
+        "file": "helpers/bits.cpp"
+    },
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-g",
+            "-O0",
+            "-std=c++11",
+            "-Wall",
+            "-Werror",
+            "-ftemplate-depth=1024",
+            "-o",
+            ".obj/helpers/opt.o",
+            "helpers/opt.cpp"
+        ],
+        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
+        "file": "helpers/opt.cpp"
+    },
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-g",
+            "-O0",
+            "-std=c++11",
+            "-Wall",
+            "-Werror",
+            "-ftemplate-depth=1024",
+            "-o",
+            ".obj/helpers/temp.o",
+            "helpers/temp.cpp"
+        ],
+        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
+        "file": "helpers/temp.cpp"
+    },
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-g",
+            "-O0",
+            "-std=c++11",
+            "-Wall",
+            "-Werror",
+            "-ftemplate-depth=1024",
+            "-o",
+            ".obj/lib/play.o",
+            "lib/play.cpp"
+        ],
+        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
+        "file": "lib/play.cpp"
+    },
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-g",
+            "-O0",
+            "-std=c++11",
+            "-Wall",
+            "-Werror",
+            "-ftemplate-depth=1024",
+            "-o",
+            ".obj/helpers/locks.o",
+            "helpers/locks.cpp"
+        ],
+        "directory": "/home/noah/programs/classes/active/532/532_noah_clayton/shared_stuff/lab2",
+        "file": "helpers/locks.cpp"
+    },
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-g",
+            "-O0",
+            "-std=c++11",
+            "-Wall",
+            "-Werror",
+            "-ftemplate-depth=1024",
             "-o",
             ".obj/helpers/util.o",
             "helpers/util.cpp"

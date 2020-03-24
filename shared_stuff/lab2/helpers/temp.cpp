@@ -175,9 +175,8 @@ doTemps(int index, double* dest, int num_threads) {
   //fprintf(stderr, "doTemp(%d,%p,%d)\n", index, dest, num_threads);
   int iStart=index;
   int iEnd=index+num_threads;
-  long long int gotit = 0;
   /* if running on more threads need better way to avoid duplicate queries */
-  assert(num_threads <= (8*sizeof(unsigned long long)));
+  assert((uint64_t)num_threads <= (8*sizeof(uint64_t)));
   
   for (int i = iStart; i < iEnd; i++) {
     int coreIndex = i%num_cores;
@@ -199,7 +198,7 @@ static void
 getTemps(double* buffer, int nthreads) {
   unsigned long long gotit = 0;
   /* if running on more threads need better way to avoid duplicate queries */
-  assert(nthreads <= (8*sizeof(unsigned long long))); 
+  assert((uint64_t)nthreads <= (8*sizeof(uint64_t))); 
 
   for (int i=0; i<nthreads; i++) {
     int idx = i%num_cores;
@@ -232,7 +231,6 @@ void freeTemp(){
 
 #define MaxSleepBeforeExit 1000
 
-static int showenforcedtemps = 1;
 
 // stays in while (1) with a sleep(1) inside until the current
 // temperature is less than 1.1*StartingTemp for a given core.  Wait a

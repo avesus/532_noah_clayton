@@ -1,0 +1,151 @@
+1)
+Noah Goldstein & Clayton Knittel
+
+
+2)
+
+noah[06:13:54]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver 
+Arg[0]: ./aserver
+
+noah[06:13:57]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver a
+Error invalid arguments passed
+
+noah[06:18:27]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_client$ ./aclient 
+Error no arguments detected
+
+noah[06:13:57]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_client$ ./aclient hello world 
+./aclient
+hello
+world
+
+3)
+
+//////////////////////////////////////////////////////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "ace/INET_Addr.h"
+#include "ace/SOCK_Stream.h"
+#include "ace/SOCK_Acceptor.h"
+
+#define SUCCESS 0
+#define FAILURE (-1)
+
+#define PORT_NUM 6005
+
+#define NARGS 1
+int main(int argc, char * argv[]){
+  if(argc != NARGS){
+    fprintf(stderr, "Error invalid arguments passed\n");
+    exit(FAILURE);
+  }
+
+  fprintf(stderr,
+	  "Arg[0]: %s\n",
+	  argv[0]);
+
+  ACE_INET_Addr ace_addr(PORT_NUM, ACE_LOCALHOST);
+  ACE_SOCK_Stream ace_stream;
+  ACE_SOCK_Acceptor ace_accptr;
+  if(ace_accptr.open(ace_addr, 1) < 0){
+    fprintf(stderr, "Error opening acceptor\n");
+    exit(FAILURE);
+  }
+  char addr_to_str_buf[256] = "";
+  ace_addr.addr_to_string(addr_to_str_buf, 256);
+  fprintf(stderr, "New Acceptor On ->\n\t%s\n", addr_to_str_buf);
+
+  if(ace_accptr.accept(ace_stream) < 0){
+    fprintf(stderr, "Error calling accept\n");
+    exit(FAILURE);
+  }
+  size_t ret = 0;
+  char single_read;
+  while((ret = ace_stream.recv_n(&single_read, 1)) > 0){
+    fprintf(stderr, "%c", single_read);
+  }
+
+  return SUCCESS;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "ace/INET_Addr.h"
+#include "ace/SOCK_Stream.h"
+#include "ace/SOCK_Connector.h"
+
+#define SUCCESS 0
+#define FAILURE (-1)
+
+#define PORT_NUM 6005
+
+#define MIN_ARGS 2
+int main(int argc, char * argv[]){
+  if(argc < MIN_ARGS){
+    fprintf(stderr, "Error no arguments detected\n");
+    exit(FAILURE);
+  }
+
+
+  ACE_INET_Addr ace_addr(PORT_NUM, ACE_LOCALHOST);
+  ACE_SOCK_Stream ace_stream;
+  ACE_SOCK_Connector ace_connect;
+
+
+  if(ace_connect.connect(ace_stream, ace_addr) < 0){
+    fprintf(stderr, "Error connecting\n");
+    exit(FAILURE);
+  }
+
+  char send_buf[256] = "";
+    for(int i=0; i<argc; i++){
+      sprintf(send_buf, "%s\n", argv[i]);
+      if(ace_stream.send_n(send_buf, strlen(send_buf)) < 0){
+	fprintf(stderr, "Error sending (%d)\n", i);
+      }
+    }
+    ace_stream.close();
+
+
+  return SUCCESS;
+}
+//////////////////////////////////////////////////////////////////////
+
+4)
+
+Its important to be able to handle all control flows, otherwise the
+program can potentially not perform its intended goal. Since sys are
+on the less reliable side, for networking/IO its especially important
+
+5)
+
+noah[06:17:55]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ 
+./aserver
+Arg[0]: ./aserver
+New Acceptor On ->
+	127.0.0.1:6005
+./aclient
+hello
+world
+
+noah[06:18:44]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_client$ ./aclient hello world
+
+
+noah[06:21:32]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver
+Arg[0]: ./aserver
+New Acceptor On ->
+	127.0.0.1:6005
+./aclient
+this
+is
+an
+entirely
+different
+set
+of
+arguments
+
+noah[06:21:32]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_client$ ./aclient this is an entirely different set of arguments

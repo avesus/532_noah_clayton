@@ -3,149 +3,61 @@ Noah Goldstein & Clayton Knittel
 
 
 2)
+noah[10:36:00]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_client$ ./aclient hello world
+noah[10:36:05]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_client$ ./aclient second try
 
-noah[06:13:54]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver 
+noah[10:35:37]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver 
 Arg[0]: ./aserver
-
-noah[06:13:57]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver a
-Error invalid arguments passed
-
-noah[06:18:27]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_client$ ./aclient 
-Error no arguments detected
-
-noah[06:13:57]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_client$ ./aclient hello world 
+New Acceptor On ->
+	127.0.0.1:6005
 ./aclient
 hello
 world
+./aclient
+second
+try
 
 3)
 
-//////////////////////////////////////////////////////////////////////
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "ace/INET_Addr.h"
-#include "ace/SOCK_Stream.h"
-#include "ace/SOCK_Acceptor.h"
-
-#define SUCCESS 0
-#define FAILURE (-1)
-
-#define PORT_NUM 6005
-
-#define NARGS 1
-int main(int argc, char * argv[]){
-  if(argc != NARGS){
-    fprintf(stderr, "Error invalid arguments passed\n");
-    exit(FAILURE);
-  }
-
-  fprintf(stderr,
-	  "Arg[0]: %s\n",
-	  argv[0]);
-
-  ACE_INET_Addr ace_addr(PORT_NUM, ACE_LOCALHOST);
-  ACE_SOCK_Stream ace_stream;
-  ACE_SOCK_Acceptor ace_accptr;
-  if(ace_accptr.open(ace_addr, 1) < 0){
-    fprintf(stderr, "Error opening acceptor\n");
-    exit(FAILURE);
-  }
-  char addr_to_str_buf[256] = "";
-  ace_addr.addr_to_string(addr_to_str_buf, 256);
-  fprintf(stderr, "New Acceptor On ->\n\t%s\n", addr_to_str_buf);
-
-  if(ace_accptr.accept(ace_stream) < 0){
-    fprintf(stderr, "Error calling accept\n");
-    exit(FAILURE);
-  }
-  size_t ret = 0;
-  char single_read;
-  while((ret = ace_stream.recv_n(&single_read, 1)) > 0){
-    fprintf(stderr, "%c", single_read);
-  }
-
-  return SUCCESS;
-}
-
-//////////////////////////////////////////////////////////////////////
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "ace/INET_Addr.h"
-#include "ace/SOCK_Stream.h"
-#include "ace/SOCK_Connector.h"
-
-#define SUCCESS 0
-#define FAILURE (-1)
-
-#define PORT_NUM 6005
-
-#define MIN_ARGS 2
-int main(int argc, char * argv[]){
-  if(argc < MIN_ARGS){
-    fprintf(stderr, "Error no arguments detected\n");
-    exit(FAILURE);
-  }
-
-
-  ACE_INET_Addr ace_addr(PORT_NUM, ACE_LOCALHOST);
-  ACE_SOCK_Stream ace_stream;
-  ACE_SOCK_Connector ace_connect;
-
-
-  if(ace_connect.connect(ace_stream, ace_addr) < 0){
-    fprintf(stderr, "Error connecting\n");
-    exit(FAILURE);
-  }
-
-  char send_buf[256] = "";
-    for(int i=0; i<argc; i++){
-      sprintf(send_buf, "%s\n", argv[i]);
-      if(ace_stream.send_n(send_buf, strlen(send_buf)) < 0){
-	fprintf(stderr, "Error sending (%d)\n", i);
-      }
-    }
-    ace_stream.close();
-
-
-  return SUCCESS;
-}
-//////////////////////////////////////////////////////////////////////
+Moved argc and argv to the new class. argc so the amount of strings to
+send it known and argv for the actual contents.
 
 4)
 
-Its important to be able to handle all control flows, otherwise the
-program can potentially not perform its intended goal. Since sys are
-on the less reliable side, for networking/IO its especially important
+First verification step:
+Added several includes.
+	#include "ace/Timer_Queue_Adapters.h"
+	#include "ace/OS.h"
+	#include "ace/Timer_Heap_T.h"
+	#include "ace/Timer_Heap.h"
+	#include "ace/Event_Handler_Handle_Timeout_Upcall.h"
+
+Added code your ask for in assignment:
+	ACE_Thread_Timer_Queue_Adapter<ACE_Timer_Heap> timeout_threads;
+	timeout_threads.activate();
+	ACE_Time_Value t_interval(3, 0);
+	ACE_Time_Value t_start(ACE_OS::gettimeofday());
+	t_start += t_interval;
+	timeout_threads.schedule(&sender, 0, t_start, t_interval);
+	ACE_Thread_Manager::instance()->wait();
+
+Second verification step:
+Added one new include:
+	#include "ace/Reactor.h"
+	
+Basically scrapped all the code from the previous. New code is as follows:
+	ACE_Time_Value t_interval(3, 0);
+	ACE_Time_Value t_delay(0, 0);
+	ACE_Reactor::instance()->schedule_timer(&sender, 0, t_delay, t_interval);
+	ACE_Reactor::instance()->run_reactor_event_loop();
 
 5)
 
-noah[06:17:55]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ 
-./aserver
-Arg[0]: ./aserver
-New Acceptor On ->
-	127.0.0.1:6005
-./aclient
-hello
-world
+Only change was instead of wrapping the accept in a while loop the
+entire setup of listening socket was wrapped in while(1) loop
 
-noah[06:18:44]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_client$ ./aclient hello world
+6) Wasn't in the instructions but...
 
-
-noah[06:21:32]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver
-Arg[0]: ./aserver
-New Acceptor On ->
-	127.0.0.1:6005
-./aclient
-this
-is
-an
-entirely
-different
-set
-of
-arguments
-
-noah[06:21:32]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_client$ ./aclient this is an entirely different set of arguments
+To do this I changed constructor (and also found that i had to call
+acceptor.open() in the constructor otherwise the client would fail to
+connect)

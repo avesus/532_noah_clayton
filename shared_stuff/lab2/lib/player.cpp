@@ -58,7 +58,7 @@ void Player::work(sync_que &q, condition_variable &cv_dir) {
 	}
         read(p.name, p.file);
         act(p.frag_num);
-	cv_dir.notify_all();
+        cv_dir.notify_all();
 	
     }
 }

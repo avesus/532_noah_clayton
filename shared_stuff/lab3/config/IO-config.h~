@@ -1,0 +1,12 @@
+#ifndef _IO_CONFIG_H_
+#define _IO_CONFIG_H_
+
+
+#define DEFAULT_NTHREADS      1
+#define DEFAULT_MAX_RECEIVERS 64
+
+#define LISTEN_QUE (1 << 10)
+#define SERVER_IP  "127.0.0.1"
+
+
+#endif

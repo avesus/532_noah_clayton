@@ -1,0 +1,10 @@
+#ifndef _BROADWAY_CONFIG_H_
+#define _BROADWAY_CONFIG_H_
+
+#define KILL_MSG 1
+#define AVAIL_MSG 2
+#define CONTENT_MSG 3
+#define CONTROL_MSG 4
+
+
+#endif

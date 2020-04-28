@@ -1,4 +1,5 @@
 #include "director.h"
+
 Director::Director(const string &name) : Director(name, 0) {}
 Director::Director(const string &name, uint32_t min_players) : i(name) {
     if (!i.is_open()) {

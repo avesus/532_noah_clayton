@@ -1,3 +1,5 @@
+// See acceptor.c
+
 #ifndef _ACCEPTOR_H_
 #define _ACCEPTOR_H_
 
@@ -5,7 +7,6 @@
 #include <IO/io_thread.h>
 #include <IO/receiver.h>
 
-typedef void (*sig_handler)(const int, const short, void *);
 typedef void (*owner_init)(void *, receiver_t *);
 
 typedef struct acceptor {
@@ -30,12 +31,11 @@ typedef struct acceptor {
 
 void free_accptr(acceptor_t * accptr);
 
-acceptor_t * init_acceptor(uint32_t   init_nthreads,
-                           char *     ip_addr,
-                           uint32_t   portno,
-                           void *     owner,
-                           sig_handler custum_sigint_handler,
-                           owner_init init);
+acceptor_t * init_acceptor(uint32_t    init_nthreads,
+                           char *      ip_addr,
+                           uint32_t    portno,
+                           void *      owner,
+                           owner_init  init);
 
 void start_accepting(acceptor_t * accptr);
 #endif

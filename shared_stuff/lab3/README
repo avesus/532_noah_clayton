@@ -1,0 +1,308 @@
+1) CSE 532 Spring 2020 Lab 3
+
+2)
+Noah Goldstein  : goldstein.n@wustl.edu
+Clayton Knittel : c.j.knittel@wustl.edu
+
+3.0) Overview
+
+This project implements an synchronous event driven IO structure for
+communication between a server (producer) and client(s)
+(director). The IO portion is built on libevent. 
+
+Producer Executable         : ./bin/do_producer
+Director Executable         : ./bin/do_director
+
+
+3.1) Directories
+
+--------------------------------------------------------------------------------
+bin/                : Directory for executables
+--------------------------------------------------------------------------------
+main/               : Directory for source files with main() function
+--------------------------------------------------------------------------------
+module/             : Directory containing source file to get machine
+                      information to store in compile-config.h as
+                      constants.
+--------------------------------------------------------------------------------
+config/             : configuration files for IO/broadway/and helper functions
+--------------------------------------------------------------------------------
+play_files          : Contains all play configuration and script files
+                      (i.e the text files provided).
+--------------------------------------------------------------------------------
+lib/                : all source and header files for helper
+                      functions, IO, and broadway implementations.
+                      
+    lib/include         : sub directory within lib with all header files
+    lib/src             : sub directory within lib with all source files
+    
+        lib/*/broadway            : all files for
+                                    director/producer/play/player... In
+                                    general all portions of this
+                                    assignment directly related to
+                                    play recitation and select are
+                                    here.
+                                    
+        lib/*/datastructs         : data structure(s) used for
+                                    implementation. Currently only an
+                                    array list that has O(1) insertion
+                                    and deletion is implemented
+                                    there. It is used by producer for
+                                    logically connecting IO structures
+                                    to directors.
+                                    
+        lib/*/helpers             : General helper functions. This
+                                    include error checking wrappers
+                                    for a variety of functions that
+                                    can possibly fail, as well
+                                    libraries that we are tired of
+                                    rewriting.
+
+        lib/*/IO                  : Code for doing event driven
+                                    asynchronous IO and signal
+                                    handling. Built on libevent (would
+                                    have prefered libev but the
+                                    linuxlab machines don't have it
+                                    installed)
+
+        lib/*/local               : helper functions/code for helper
+                                    functions. These are not part of
+                                    an API and are internal files use
+                                    for the implementation of some of
+                                    the more complex helper functions.
+--------------------------------------------------------------------------------
+
+3.2) Files
+
+For all files either the .c or .h file contains a summary of its
+purpose. Generally to avoid repetition it is either one of the
+other. Whichever one does not contain the summary states that the
+other does.
+
+Since there are many files, many of which are not directly relevant to
+this assignment, we will only discuss in more detail the files in
+config/*, IO/*, datastructs/* and broadway/* and how they are relevant
+to the actual lab assignment.
+
+--------------------------------------------------------------------------------
+lib/*/datastructs/arr_list.c/.h     : Datastructure used by the
+                                      producer to link IO structs to
+                                      their corresponding
+                                      director. The array list allows
+                                      directors to be remove/inserted
+                                      via index in O(1). Deletion does
+                                      not cause any additional
+                                      overhead to iteration. This
+                                      allows the user to select
+                                      directors they want to
+                                      communicate with or delete as
+                                      well as the producer to list the
+                                      states of all directors with
+                                      minimal overhead.
+--------------------------------------------------------------------------------
+lib/*/IO/acceptor.c/.h              : Base event loop for handling
+                                      sigint and new connections (not
+                                      the actual IO with said
+                                      connections). This is used by
+                                      the producer to handle director
+                                      connection. Upon getting a new
+                                      connection the acceptor will
+                                      pass that connection off to an
+                                      IO thread.
+--------------------------------------------------------------------------------
+lib/*/IO/connector.c/.h             : Base event loop for connecting
+                                      to a socket. Used by the
+                                      director to connect to the
+                                      producer and handle the IO with
+                                      said producer.
+--------------------------------------------------------------------------------
+lib/*/IO/io_thread.c/.h             : Threads that actually manage the
+                                      director connections received by
+                                      the acceptor. This file is
+                                      mostly hidden from the general
+                                      API used by the
+                                      director/producer which is
+                                      mainly in receiver.c/h. and
+                                      acceptor.c/.h
+--------------------------------------------------------------------------------
+lib/*/IO/receiver.c/.h              : Receiver struct is used for
+                                      handling the actual IO. The
+                                      producer uses a receiver for
+                                      handling user input via stdin
+                                      and receivers store in the IO
+                                      thread structure for handling
+                                      each of the director
+                                      connection. The director also
+                                      has a single receiver it uses to
+                                      communicate with the producer.
+--------------------------------------------------------------------------------
+config/IO-config.h                  : defines some basic constants and
+                                      stores some basic includes used
+                                      throughout the IO processes.
+--------------------------------------------------------------------------------
+lib/includes/IO/io_header.h         : General IO header. Similarly to
+                                      config just defines basic
+                                      structure of IO data for rest of
+                                      IO directory
+--------------------------------------------------------------------------------
+config/broadway-config.h            : Configuration for the protocols
+                                      for communicating between
+                                      director/producer and for the
+                                      states of a director and its
+                                      plays
+--------------------------------------------------------------------------------
+lib/*/broadway/director.cpp/.h      : Class that connects to a
+                                      producer, reads the scene file
+                                      and creates appropriate players
+                                      with the frame files. Once setup
+                                      has completed it will wait for
+                                      commands from the producer,
+                                      primarily either to (1) iterates
+                                      through the frames of the scene,
+                                      (2) stop running or (3) send
+                                      back current availabilities.
+--------------------------------------------------------------------------------
+lib/*/broadway/producer.cpp/.h      : Class that handles the
+                                      connections of multiple
+                                      directors and forwards commands
+                                      from the user to said
+                                      directors. These commands can be
+                                      (1) to run a certain play, (2)
+                                      for that director to stop, or
+                                      (3) for that director to send
+                                      back current state.
+--------------------------------------------------------------------------------
+lib/*/broadway/player.cpp/.h        : Class responsible popping
+                                      characters from a shared work
+                                      que, and upon succesful pop,
+                                      read the lines for the given
+                                      player and send them to recite
+                                      in play
+--------------------------------------------------------------------------------
+lib/*/broadway/play.cpp/.h          : Class that coordinates multiple
+                            		  parallel players to print lines
+                            		  in the proper order. This
+                            		  include situations where no
+                            		  player has the proper line
+--------------------------------------------------------------------------------
+lib/*/broadway/sync_que.cpp/.h      : A thread safe que that is used
+                            		  to assign characters to a given
+                            		  player. The director class will
+                            		  push config files to the que and
+                            		  notify players to pop. The
+                            		  director can also use this to
+                            		  notify all the player threads
+                            		  that the scene is done which
+                            		  will cause them to join and
+                            		  exit.
+--------------------------------------------------------------------------------
+
+
+3.3) Configuration Options
+
+NOTE: All configuration options in "config/broadway-config.h"
+--------------------------------------------------------------------------------
+WITH_SENDBACK       - ON -          : if defined this will cause the
+                                      director to send back the
+                                      contents of its recited plays to
+                                      the producer. If it is not
+                                      defined the director will simply
+                                      print the recited
+                                      contents. Default is ON.
+--------------------------------------------------------------------------------
+WITH_LINES          - OFF -         : if defined play recition will
+                                      include line numbers in the
+                                      printout. Default is off.
+--------------------------------------------------------------------------------
+WITH_CANCEL_TIME    - OFF -         : if defined this will cause
+                                      director to sleep duration
+                                      recitation. Just gives time to
+                                      test cancel. Obviously not part
+                                      of end product but keeping it in
+                                      for your grading
+                                      convience. Default is off
+--------------------------------------------------------------------------------
+
+
+3.4) Building
+
+--------------------------------------------------------------------------------
+NOTE: Make must be called from the top level directory!
+
+Note on compiler warnings/errors: We intentionally have turned of
+warnings on pointer arithmetic and unused functions. Both of these
+warnings, we feel, do not contribute to clearer or better code, and in
+fact are detrimental in their obscurification potentially useful
+warnings. 
+
+To build normally:
+/path/to/lab3/$> make clean; make
+
+To build with debug mode on:
+/path/to/lab3/$> make clean; make D=1
+
+To build and remake compile-config.h
+/path/to/lab3/$> make clean; make W=1
+--------------------------------------------------------------------------------
+
+
+3.5) Design Discussions
+
+We implemented a commandline and sigint option for killing either a
+director or the producer (and thus all directors). The commandline to
+kill a single director is simply "kill <director idx>". Thisadded
+functionality was preferable. The sigint events where implemented
+within the acceptor/connector event loops. Since any object
+(director/producer/etc...) would have one of these we felt it was the
+most logical method. We are not concerned that including the sigint
+handlers will negatively affect the performance of the loop for
+either.
+
+We were not sure if you wanted the director to simply printout the
+play contents or send back the contents. We implemented both such that
+the functionality can be configured with the "WITH_SENDBACK" define.
+
+We chosen to use libevent as the framework for your event loop as
+opposed to ACE. This is foremost because libevent is more similiar to
+libev (which in our opinion is by far the best library for writing
+event driven asynch servers). As well, we believe ACE ultimately
+undermines its very purpose by attempting to much. Philosophically we
+feel CPP is meant to provide containers for concepts so that it is
+easier to programmers to understand the purpose and functionality of
+others' code. By trying to include too many things we feel ACE
+defeats this purpose. In many ways one could say the same thing
+about libevent (hence why we prefer libev), and ultimately we feel
+both libraries have serious drawback due to their attempted breadth.
+
+We chose the implement the IO thread method of handling multiple
+clients partially for fun (the bit vector approach is a really fast
+log_64 run time for variable threads and connections). We also expect
+it would improve performance in a high stress environment.
+
+4) Wrappers Facades
+
+The only wrapper facades we used were the sync_que which is a standard
+thread safe que with multiple poppers and a single pusher. The
+rational for this choice is above. The only exntesion we added was the
+functionality for the director thread to signal completion to all the
+players. This is done by ensuring all players are currently waiting on
+the CV, then setting done and waking this all up which causes them to
+exit allowing their threads to be cleaned up.
+
+
+5) Insights & Observations
+
+I really enjoyed this lab. Writing the IO portion was enjoyable and I
+learned a great deal of useful information. One of my plans for the
+future is to cleanup the IO code and rewrite it with libev so that I
+can have it as a useful library in the future. I think it would be
+especially fun to try and implement with UDP sockets.
+
+One thing I was thinking of while working on this lab, particularly
+when linking the Director/Producer with the IO, was that it would be
+interesting to teach this class almost in reverse order. What I mean
+is that I think it might have been interesting to have assignment 1 be
+to write some serious code base however you like, and the rest of the
+class be cleaning up that code and adding small bits. Not sure if it
+would be feasible but I think its the bigger projects (like this one)
+that really emphasize the purpose of the class.

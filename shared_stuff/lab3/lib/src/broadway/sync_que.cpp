@@ -1,7 +1,10 @@
-#include <broadway/sync_que.h>
-
 // Basic que that allows safe multithreaded push/pops. This is how
 // config files for characters are given to players by the director
+
+
+#include <broadway/sync_que.h>
+
+
 void
 sync_que::push(p_info p) {
 
@@ -24,6 +27,7 @@ sync_que::pop() {
     cv.wait(lock, [&] { return (this->que.size() || this->done); });
     if (this->done && this->que.size() == 0) {
         p_info empty;
+        memset(&empty, 0, sizeof(p_info));
         return empty;
     }
     p_info ret = que.front();

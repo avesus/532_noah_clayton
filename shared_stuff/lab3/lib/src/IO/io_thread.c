@@ -1,3 +1,8 @@
+// Each IO thread will run it own event loop to handle the IO of its various
+// receivers. Each thread can support at minimum 64 receivers though it can be
+// configured to handle up to 262144. The IO thread receives new connection from
+// the acceptor and add their file descriptor to its event loop.
+
 #include <IO/io_thread.h>
 
 static uint32_t
@@ -17,7 +22,6 @@ count_recvrs(io_thread_t * io_thr) {
     }
     return sum + (total_idx * sizeof_bits(uint64_t));
 }
-
 
 static uint64_t
 find_set_recvr_idx(io_thread_t * io_thr) {
@@ -52,10 +56,8 @@ find_set_recvr_idx(io_thread_t * io_thr) {
           io_thr->recvr_idx_mask[recvr_mask_idx],
           recvr_idx);
 
-
     return recvr_idx + (recvr_mask_idx * sizeof_bits(uint64_t));
 }
-
 
 static void
 change_avail_status(io_thread_t * io_thr) {
@@ -77,14 +79,12 @@ change_avail_status(io_thread_t * io_thr) {
                *(io_thr->parent_avail_threads));
 }
 
-
 void
 drop_recvr(io_thread_t * io_thr, uint32_t recvr_idx) {
     PRINT(MED_VERBOSE,
           "Freeing receiver %d from thread %d\n",
           recvr_idx,
           io_thr->my_thread_idx);
-
 
     const uint32_t _vec_idx = recvr_idx / sizeof_bits(uint64_t);
     const uint32_t _vec_pos = recvr_idx % sizeof_bits(uint64_t);
@@ -118,10 +118,8 @@ drop_recvr(io_thread_t * io_thr, uint32_t recvr_idx) {
         }
     }
 
-
     pthread_mutex_unlock(&(io_thr->m));
 }
-
 
 static void *
 handle_command(void * arg, io_data * data_buf) {
@@ -135,7 +133,6 @@ handle_command(void * arg, io_data * data_buf) {
     myfree(data_buf);
     return NULL;
 }
-
 
 receiver_t *
 register_new_connection(io_thread_t * io_thr, int32_t new_conn_fd) {
@@ -152,14 +149,12 @@ register_new_connection(io_thread_t * io_thr, int32_t new_conn_fd) {
                "Error selected thread (%d) is full!\n",
                io_thr->my_thread_idx);
 
-
     receiver_t * new_recvr = init_recvr(new_conn_fd,
                                         0,
                                         recvr_idx,
                                         (void *)io_thr,
                                         io_thr->thr_ev_base,
                                         &handle_command);
-
 
     DBG_ASSERT(io_thr->recvrs[recvr_idx] == NULL,
                "Error recvr idx (%lu) already taken\n",
@@ -175,11 +170,9 @@ register_new_connection(io_thread_t * io_thr, int32_t new_conn_fd) {
           count_recvrs(io_thr),
           io_thr->max_receivers);
 
-
     io_thr->recvrs[recvr_idx] = new_recvr;
     return new_recvr;
 }
-
 
 io_thread_t *
 init_thread(volatile uint64_t * parent_avail_threads,
@@ -230,17 +223,14 @@ init_thread(volatile uint64_t * parent_avail_threads,
     new_io_thr->recvrs = (receiver_t **)mycalloc(new_io_thr->max_receivers,
                                                  sizeof(receiver_t *));
 
-
     NEW_FRAME(FMTS("%p", "%p", "%d", "%d"),
               VARS(new_io_thr,
                    new_io_thr->recvrs,
                    new_io_thr->max_receivers,
                    thread_idx));
 
-
     return new_io_thr;
 }
-
 
 static void *
 io_thread_loop(void * arg) {
@@ -256,7 +246,6 @@ void
 start_thread(io_thread_t * io_thr) {
     mypthread_create(&(io_thr->tid), NULL, io_thread_loop, io_thr);
 }
-
 
 void
 free_thread(io_thread_t * io_thr) {

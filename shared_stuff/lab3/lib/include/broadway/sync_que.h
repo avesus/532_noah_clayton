@@ -1,3 +1,5 @@
+// see sync_que.cpp
+
 #ifndef _SYNC_QUE_H_
 #define _SYNC_QUE_H_
 
@@ -15,7 +17,6 @@
 #include <broadway/play.h>
 
 #include <IO/receiver.h>
-
 
 
 using namespace std;

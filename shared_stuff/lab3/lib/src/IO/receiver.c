@@ -1,24 +1,27 @@
+// Struct for actually handling a given connection. True to its name the
+// receiver is built primarily for reading. It can safelty write back though is
+// optimized less so for it. Writing back is considered as a possibly way to
+// handle some data that was read, not the primary purpose.
+
 #include <IO/receiver.h>
 
 void
 prepare_send_recvr(receiver_t * recvr, HEADER_TYPE hdr, uint8_t * data) {
-
 
     DBG_ASSERT(hdr > HEADER_SIZE,
                "Error trying to prepare an empty message...\n");
 
     PRINT(HIGH_VERBOSE, "prep_writing[%p, %d, %d]\n", data, hdr, data[0]);
     store_recvr_outbuf(recvr, (uint8_t *)(&hdr), HEADER_SIZE, ACQUIRE);
-    store_recvr_outbuf(recvr,
-                       (uint8_t *)data,
-                       (hdr - (HEADER_SIZE)),
-                       RELEASE);
+    store_recvr_outbuf(recvr, (uint8_t *)data, (hdr - (HEADER_SIZE)), RELEASE);
 
-    PRINT(HIGH_VERBOSE, "Writing Type: %d\n", OUTBUF_PTR(recvr->outbuf)[HEADER_SIZE]);
-    
+    PRINT(HIGH_VERBOSE,
+          "Writing Type: %d\n",
+          OUTBUF_PTR(recvr->outbuf)[HEADER_SIZE]);
+
     reset_recvr_event(recvr, &handle_event, EV_WRITE, WRITING);
 }
-    
+
 void
 clear_recvr_outbuf(receiver_t * recvr) {
     ACQUIRE_OUTBUF(recvr->outbuf);
@@ -90,7 +93,6 @@ store_recvr_outbuf(receiver_t * recvr,
           recvr->outbuf_cur_size,
           recvr->outbuf_size);
 }
-
 
 void
 free_recvr(receiver_t * recvr) {
@@ -164,10 +166,8 @@ init_recvr(int32_t             fd,
                    init_buf_size,
                    new_recvr->buf_size));
 
-
     return new_recvr;
 }
-
 
 void
 reset_recvr_event(receiver_t * recvr,
@@ -196,7 +196,6 @@ reset_recvr_event(receiver_t * recvr,
         errdie("Unable to readd recvr event\n");
     }
 }
-
 
 void
 handle_stdin_event(const int fd, const short which, void * arg) {
@@ -254,7 +253,6 @@ handle_stdin_event(const int fd, const short which, void * arg) {
         stdin_recvr->rd_handle(stdin_recvr, NULL);
     }
 }
-
 
 void
 handle_event(const int fd, const short which, void * arg) {
@@ -318,7 +316,6 @@ reset_recvr_rd_state(receiver_t * recvr) {
     recvr->amt_expected = 0;
     recvr->rd_state     = READING_NONE;
 }
-
 
 static void
 do_read(receiver_t * recvr) {
@@ -389,7 +386,6 @@ read_header(receiver_t * recvr) {
     }
 }
 
-
 io_data *
 read_body(receiver_t * recvr) {
     DBG_ASSERT(IO_DATA_LEN(recvr->buf) <= recvr->amt_expected,
@@ -426,10 +422,8 @@ read_body(receiver_t * recvr) {
     return NULL;
 }
 
-
 io_data *
 handle_read(receiver_t * recvr) {
-
 
     PRINT(HIGH_VERBOSE, "Read event triggered for fd [%d]\n", recvr->fd);
 
@@ -481,7 +475,6 @@ handle_write(receiver_t * recvr) {
 
     // if priority we already have acquired the lock successfully
     ACQUIRE_OUTBUF(recvr->outbuf);
-
 
     PRINT(HIGH_VERBOSE,
           "Writing[%p (%d)]\n",

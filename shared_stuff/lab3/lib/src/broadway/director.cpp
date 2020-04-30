@@ -1,4 +1,12 @@
+// Class that connects to a producer, reads the scene file  and creates
+// appropriate players  with the frame files. Once setup  has completed it will
+// wait for  commands from the producer,  primarily either to (1) iterates
+// through the frames of the scene,  (2) stop running or (3) send  back current
+// availabilities.
+
 #include <broadway/director.h>
+
+
 
 
 static void
@@ -13,15 +21,23 @@ priority_kill_msg(receiver_t * recvr) {
     store_recvr_outbuf(recvr, (uint8_t *)(&hdr), HEADER_SIZE, 0);
     store_recvr_outbuf(recvr, (uint8_t *)(&type), TYPE_SIZE, 0);
 
-
     // force this write to go through...
     make_blocking(recvr->fd);
     myrobustwrite(recvr->fd, OUTBUF_PTR(recvr->outbuf), hdr);
 
-    fprintf(stderr, "Priority message sent\n");
+    PRINT(LOW_VERBOSE, "Priority message sent\n");
     // dont unset lock. no more messages should be sent
 }
 
+
+static void
+my_sigint_handler(const int fd, const short which, void * arg) {
+    fprintf(stderr, "SIGINT received. Shutting down\n");
+    Director * this_director = (Director *)arg;
+    priority_kill_msg(this_director->connect->net_recvr);
+    this_director->~Director();
+    
+}
 
 static void
 send_data(receiver_t * recvr, TYPE_TYPE type, HEADER_TYPE hdr, char * data) {
@@ -100,6 +116,8 @@ handle_net_cmd(void * arg, io_data * data_buf) {
                    "Error invalid length(%d) for KILL_MSG\n",
                    data_buf->length);
 
+        fprintf(stderr, "Kill Message Received. Shutting down\n");
+        
         // this is blocking so ~Director will not go through until ack sent
         priority_kill_msg(recvr);
         this_director->~Director();
@@ -130,7 +148,6 @@ handle_net_cmd(void * arg, io_data * data_buf) {
             // update index, not sure exactly what to do if invalid
             DBG_ASSERT(this_director->update_status_idx(0) == 0,
                        "Error somehow found playname but not index...\n");
-
 
             // send avails to show ongoing
             this_director->send_avails();
@@ -173,7 +190,6 @@ handle_net_cmd(void * arg, io_data * data_buf) {
     return NULL;
 }
 
-
 Director::Director(const string & name, char * ip_addr, uint32_t portno)
     : Director(name, 0, ip_addr, portno) {}
 
@@ -198,7 +214,6 @@ Director::Director(const string & name,
 
         this->titles.push_back(name);
         this->statuses.push_back("Ready");
-
 
         string   buf;
         uint32_t prev = 0, scene = 0;
@@ -233,8 +248,7 @@ Director::Director(const string & name,
 
                     if (!scene) {
                         // there is a config file before this
-                        //                        max  = MAX(max, prev +
-                        //                        n_chars);
+                        max  = MAX(max, prev + n_chars);
                         prev = n_chars;
                     }
                     else {
@@ -249,9 +263,7 @@ Director::Director(const string & name,
             }
         }
 
-
         this->nparts.push_back(total_chars);
-        max = MAX(max, total_chars);
 
         this->p.push_back(make_shared<Play>(this->pconf[iter_num].names));
         if (!this->p[iter_num]) {
@@ -271,9 +283,20 @@ Director::Director(const string & name,
     this->connect->net_recvr->rd_handle = handle_net_cmd;
     set_owner(this->connect->net_recvr, (void *)this);
 
+
+    event_set(&(this->connect->sigint_ev),
+              SIGINT,
+              EV_SIGNAL,
+              &my_sigint_handler,
+              (void *)this);
+    
+    event_base_set(this->connect->connect_base, &(this->connect->sigint_ev));
+    if (event_add(&(this->connect->sigint_ev), NULL) == (-1)) {
+        errdie("Unable to add acceptor event\n");
+    }
+    
     this->cue_enter();
 }
-
 
 Director::~Director() {
     this->shutdown      = SHUTDOWN;
@@ -289,11 +312,11 @@ Director::~Director() {
     frag_que.done = SHUTDOWN;
     frag_que.cv.notify_all();
     for (uint32_t j = 0; j < players.size(); j++) {
-        fprintf(stderr, "Joined %d/%ld\n", j, players.size());
+        PRINT(MED_VERBOSE, "Joined %d/%ld\n", j, players.size());
         while (!players[j]->exit()) {
         }
     }
-    fprintf(stderr, "Joining cue\n");
+    PRINT(MED_VERBOSE, "Joining cue\n");
     while (!this->cue_exit()) {
     }
 }
@@ -336,7 +359,7 @@ void
 Director::cue(uint32_t idx) {
     // iterates through scene fragments and coordinates players/play
     // based on current/next fragment
-    fprintf(stderr, "Starting Cue(%d)!\n", idx);
+    PRINT(MED_VERBOSE, "Starting Cue(%d)!\n", idx);
     unique_lock<mutex> lock(m);
     this->p[idx]->reset_play_state();
     string * agr_outbuf       = new string;
@@ -355,13 +378,9 @@ Director::cue(uint32_t idx) {
         }
 
         if (frag == this->pconf[idx].configs.size()) {
-            fprintf(stderr, "Breaking\n");
             break;
         }
-        fprintf(stderr,
-                "1: Loop %lu/%lu\n",
-                frag,
-                this->pconf[idx].configs.size());
+        
         // reset play counter between fragments. This resets error
         // checking for missing lines, prints new scene if needed/does
         // any other book keeping
@@ -369,13 +388,10 @@ Director::cue(uint32_t idx) {
         this->p[idx]->reset_counter((agr_outbuf));
         // set number of expected players for checking skipped line for
         // given fragment
-#ifdef TEST_CANCEL
+#ifdef WITH_CANCEL_TIME
         sleep(1);
 #endif
-        fprintf(stderr,
-                "2: Loop %lu/%lu\n",
-                frag,
-                this->pconf[idx].configs.size());
+        
         this->p[idx]->set_on_stage(this->pconf[idx].n_players[frag]);
 
         p_info pi;
@@ -387,32 +403,18 @@ Director::cue(uint32_t idx) {
         pi.active_play    = this->p[idx];
         PRINT(HIGH_VERBOSE, "Queing frame[%d] %ld\n", *pi.frags_left, frag);
 
-
         string buf;
         while (getline(this->pconf[idx].configs[frag], buf)) {
             if (istringstream(buf) >> pi.name >> pi.file) {
-                fprintf(stderr,
-                        "MARKERHIT START: %s: %s\n",
-                        pi.name.c_str(),
-                        pi.file.c_str());
                 // initialize que for worker threads to read from
                 frag_que.push(pi);
-                fprintf(stderr,
-                        "MARKERHIT START2: %s: %s\n",
-                        pi.name.c_str(),
-                        pi.file.c_str());
             }
         }
-        fprintf(stderr,
-                "MARKERHIT START3: %s: %s\n",
-                pi.name.c_str(),
-                pi.file.c_str());
-
 
         this->pconf[idx].configs[frag].clear();
         this->pconf[idx].configs[frag].seekg(0, ios::beg);
     }
-    fprintf(stderr, "Exit Cue(%d)\n", idx);
+    PRINT(MED_VERBOSE, "Exit Cue(%d)\n", idx);
 }
 
 string
@@ -424,7 +426,7 @@ Director::format_avails() {
 
     string send_buf = "";
     for (uint32_t i = 0; i < this->titles.size(); i++) {
-        fprintf(stderr,
+        PRINT(HIGH_VERBOSE,
                 "%d/%ld: %s\n",
                 i,
                 this->titles.size(),
@@ -455,7 +457,6 @@ Director::format_avails() {
     return send_buf;
 }
 
-
 void
 Director::send_avails() {
     std::string send_buf = this->format_avails();
@@ -465,7 +466,6 @@ Director::send_avails() {
         send_buf.length() + 1 + HEADER_SIZE + TYPE_SIZE,  // + 1 for null term
         (char *)send_buf.c_str());
 }
-
 
 void
 Director::start_directing() {
@@ -487,7 +487,6 @@ Director::find_req_play(string req_play_name) {
     }
     return (-1);
 }
-
 
 int32_t
 Director::update_status_idx(uint32_t idx) {

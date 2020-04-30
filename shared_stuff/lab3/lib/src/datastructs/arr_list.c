@@ -1,5 +1,17 @@
-#include <datastructs/arr_list.h>
+// this contains an implementation of an array list that allows
+// O(1) insertion and deletion. The array portion is implemented as an array of
+// arrays. The outside array (array of arrays) points to arrays whose size grows
+// exponentially with index. This allows for resizing (at the cost of an
+// additional pointer dereference) without copying data. The API assumes
+// indexing as if it where a standard array (i.e access item N). The 2d
+// coordinates of a given index N is computed with simple bit operations. All
+// items are also part of a linked list. This means that even if the arr list is
+// only sparsely populated iteration will only be through active elements.
+// Finally there is a list of free indexes so that if items are deleted
+// reinsertion will be able to reuse those old indexes. This is all O(1) though
+// the constant factors make this only practical in specific cirumstances.
 
+#include <datastructs/arr_list.h>
 
 arr_list_t *
 init_alist(uint32_t init_size) {
@@ -16,7 +28,6 @@ init_alist(uint32_t init_size) {
     pthread_mutex_init(&(new_alist->m), NULL);
     return new_alist;
 }
-
 
 void
 free_alist(arr_list_t * alist) {
@@ -55,7 +66,6 @@ add_to_list(arr_list_t * alist, arr_node_t * new_node) {
     }
 }
 
-
 static void
 remove_from_list(arr_list_t * alist, arr_node_t * drop_node) {
     if (drop_node->next == NULL && drop_node->prev == NULL) {
@@ -73,7 +83,6 @@ remove_from_list(arr_list_t * alist, arr_node_t * drop_node) {
         drop_node->next->prev = drop_node->prev;
     }
 }
-
 
 static uint64_t
 get_x_y_idx(uint32_t idx, uint32_t log_init_size) {
@@ -100,13 +109,11 @@ get_x_y_idx(uint32_t idx, uint32_t log_init_size) {
                idx,
                x_y_to_idx(x_idx, y_idx, log_init_size));
 
-
     uint64_t ret = y_idx;
     ret <<= sizeof_bits(uint32_t);
     ret |= x_idx;
     return ret;
 }
-
 
 arr_node_t *
 add_node(arr_list_t * alist, void * usr_key, void * usr_data) {
@@ -158,7 +165,6 @@ get_node_idx(arr_list_t * alist, uint32_t idx) {
     uint32_t log_init_size = alist->log_init_size;
     uint64_t x_y_idx       = get_x_y_idx(idx, log_init_size);
 
-
     uint32_t x_idx = get_x_idx(x_y_idx);
     uint32_t y_idx = get_y_idx(x_y_idx);
 
@@ -205,7 +211,6 @@ remove_node(arr_list_t * alist, arr_node_t * drop_node) {
     remove_from_list(alist, drop_node);
     add_to_que(alist, (idx_node_t *)drop_node);
 }
-
 
 void
 print_nodes(arr_list_t * alist, void print_usr_data(arr_node_t *)) {

@@ -1,3 +1,6 @@
+// helper class for recitation of a given play. Stores basic information on a
+// given play.
+
 #include <broadway/play.h>
 
 using std::endl;
@@ -10,7 +13,7 @@ Play::recite(set<line>::iterator & it,
              int32_t * volatile progress_state,
              string * agr_outbuf) {
 
-    fprintf(stderr, "Start Recite\n");
+    PRINT(HIGH_VERBOSE, "Start Recite\n");
     unique_lock<mutex> l(m);
 
     string ret;
@@ -18,11 +21,11 @@ Play::recite(set<line>::iterator & it,
             this->scene_fragment_counter == expec_fragments_lines) ||
            (this->scene_fragment_counter < expec_fragments_lines)) {
 
-        if((*(progress_state)) == CANCELLED) {
-            fprintf(stderr, "End Recite\n");
+        if ((*(progress_state)) == CANCELLED) {
+            PRINT(HIGH_VERBOSE, "End Recite\n");
             return;
         }
-        
+
         n_passed++;
 
 
@@ -37,12 +40,12 @@ Play::recite(set<line>::iterator & it,
             line_counter++;
             n_passed = 0;
             cv.notify_all();
-            fprintf(stderr, "End Recite\n");
+            PRINT(HIGH_VERBOSE, "End Recite\n");
             continue;
         }
         cv.wait(l);
-        if((*(progress_state)) == CANCELLED) {
-            fprintf(stderr, "End Recite\n");
+        if ((*(progress_state)) == CANCELLED) {
+            PRINT(HIGH_VERBOSE, "End Recite\n");
             return;
         }
     }
@@ -51,24 +54,16 @@ Play::recite(set<line>::iterator & it,
     if (line_counter != it->linen ||
         this->scene_fragment_counter > expec_fragments_lines) {
 
-
-        /*        (*agr_outbuf) += "\n";
-        (*agr_outbuf) += "****** line ";
-        (*agr_outbuf) += to_string(it->linen);
-        (*agr_outbuf) += " said by ";
-        (*agr_outbuf) += it->character;
-        (*agr_outbuf) += " skipped fragment ******";*/
-
         this->names_idx++;
         cv.notify_all();
-        fprintf(stderr, "End Recite\n");
+        PRINT(HIGH_VERBOSE, "End Recite\n");
         return;
     }
 
-    if((*(progress_state)) == CANCELLED) {
-        fprintf(stderr, "End Recite\n");
-            return;
-        }
+    if ((*(progress_state)) == CANCELLED) {
+        PRINT(HIGH_VERBOSE, "End Recite\n");
+        return;
+    }
     // change of character
     if (cur_char != it->character) {
         if (cur_char != "") {
@@ -81,12 +76,14 @@ Play::recite(set<line>::iterator & it,
 
     // actually printing the line
     (*agr_outbuf) += "\n";
+#ifdef WITH_LINES
     (*agr_outbuf) += to_string(it->linen);
     (*agr_outbuf) += ": ";
+#endif
     (*agr_outbuf) += it->msg;
 
     line_counter++;
     n_passed = 0;
     cv.notify_all();
-    fprintf(stderr, "End Recite\n");
+    PRINT(HIGH_VERBOSE, "End Recite\n");
 }

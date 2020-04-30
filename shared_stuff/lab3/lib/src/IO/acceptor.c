@@ -1,3 +1,13 @@
+// Struct that runs an event loop on a listening socket as well as sigint. Upon
+// receiving an event due to socket connection that acceptor will pass that
+// connection off to an available IO thread. If no IO threads are available the
+// acceptor will create a new thread. Thread capacity has been reached the
+// acceptor will throw an error. On minimum settings this means handling 2^12
+// concurrent connections. On max settings it can handle 2^24. If connections
+// are maintained the method of handoff is round robin. With deletion handoff
+// will attempt round robin though its worst case can cause some threads to be
+// overloaded.
+
 #include <IO/acceptor.h>
 
 static void
@@ -17,7 +27,12 @@ prep_accptr_socket(char * ip_addr, uint32_t portno) {
     addr.sin_family      = AF_INET;
     addr.sin_addr.s_addr = INADDR_ANY;
     addr.sin_port        = htons(portno);
-    inet_aton(ip_addr, &addr.sin_addr);
+
+    // if a specific IP (for example local host) was specified then set that
+    // directly otherwise INADDR_ANY will fine
+    if (strcmp(ip_addr, "")) {
+        inet_aton(ip_addr, &addr.sin_addr);
+    }
 
     int32_t socket_flags = 1;
     int32_t socket_fd    = socket(AF_INET, SOCK_STREAM, 0);
@@ -35,7 +50,6 @@ prep_accptr_socket(char * ip_addr, uint32_t portno) {
                SO_KEEPALIVE,
                (void *)&socket_flags,
                sizeof(socket_flags));
-
 
     if (bind(socket_fd, (struct sockaddr *)&addr, sizeof(struct sockaddr)) ==
         (-1)) {
@@ -68,7 +82,6 @@ add_new_io_thread(acceptor_t * accptr) {
         "mask    : %lx\n",
         _new_thread_idx,
         _dbg_res);
-
 
     accptr->io_threads[_new_thread_idx] =
         init_thread(&(accptr->avail_threads), _new_thread_idx, 0);
@@ -179,15 +192,12 @@ free_accptr(acceptor_t * accptr) {
     // call is hanging at the mutex
 }
 
-
 acceptor_t *
-init_acceptor(uint32_t    init_nthreads,
-              char *      ip_addr,
-              uint32_t    portno,
-              void *      owner,
-              sig_handler custum_sigint_handler,
-              owner_init  init) {
-
+init_acceptor(uint32_t   init_nthreads,
+              char *     ip_addr,
+              uint32_t   portno,
+              void *     owner,
+              owner_init init) {
 
     acceptor_t * new_accptr = (acceptor_t *)mycalloc(1, sizeof(acceptor_t));
 
@@ -195,7 +205,6 @@ init_acceptor(uint32_t    init_nthreads,
     if (new_accptr->accptr_base == NULL) {
         errdie("Couldn't initialize acceptor event base\n");
     }
-
 
     new_accptr->my_owner = owner;
     new_accptr->init     = init;
@@ -224,22 +233,6 @@ init_acceptor(uint32_t    init_nthreads,
     NEW_FRAME(FMTS("%p", "%d", "%d"),
               VARS(new_accptr, new_accptr->nthreads, new_accptr->accept_fd));
 
-    if (owner != NULL && custum_sigint_handler != NULL) {
-
-        event_set(&(new_accptr->sigint_ev),
-                  SIGINT,
-                  EV_SIGNAL,
-                  custum_sigint_handler,
-                  (void *)owner);
-
-        event_base_set(new_accptr->accptr_base, &(new_accptr->sigint_ev));
-        if (event_add(&(new_accptr->sigint_ev), NULL) == (-1)) {
-            errdie("Unable to add acceptor event\n");
-        }
-    }
-    else {
-        signal(SIGINT, default_sigint_handler);
-    }
 
     event_set(&(new_accptr->accptr_ev),
               accept_fd,

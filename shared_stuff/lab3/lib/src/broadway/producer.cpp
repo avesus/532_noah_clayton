@@ -1,3 +1,8 @@
+// Class that handles the connections of multiple directors and forwards
+// commands from the user to said directors. These commands can be (1) to run a
+// certain play, (2) for that director to stop, or (3) for that director to send
+// back current state.
+
 #include <broadway/producer.h>
 
 #define ACQUIRE_USR_DATA(X) (lb_writeLock((uint64_t * volatile)(&(X))))
@@ -7,8 +12,8 @@
 
 static void
 my_sigint_handler(const int fd, const short which, void * arg) {
-    PRINT(LOW_VERBOSE, "Handling SIGINT\n");
-    producer *   this_producer = (producer *)arg;
+    fprintf(stderr, "SIGINT received. Shutting down\n");
+    producer * this_producer = (producer *)arg;
     this_producer->~producer();
 }
 
@@ -75,19 +80,22 @@ handle_net_cmd(void * arg, io_data * data_buf) {
     }
     else if (type == CONTENT_MSG) {
         fprintf(stderr,
-                "Received Play Content!\n\"%s\"\n",
+                "Received Play Content!\n%s\n\n",
                 (char *)(&(data_buf->data[DATA_START_IDX])));
         // request to state a given play
         send_type(recvr, AVAIL_MSG);
         myfree(data_buf);
     }
     else if (type == CONTROL_MSG) {
-
-        // director is requesting a ping
-        fprintf(stderr,
-                "Director Send Non-Content Response: \n\"%s\"\n",
-                (char *)(&(data_buf->data[DATA_START_IDX])));
-        myfree(data_buf);
+        if (!strcmp((char *)(&data_buf->data[DATA_START_IDX]), "ping")) {
+            send_type(recvr, AVAIL_MSG);
+        }
+        else {
+            fprintf(stderr,
+                    "Director Send Non-Content Response: \n\"%s\"\n",
+                    (char *)(&(data_buf->data[DATA_START_IDX])));
+            myfree(data_buf);
+        }
     }
     else {
         die("This is impossible...\n");
@@ -110,14 +118,15 @@ handle_stdin_cmd(void * arg, io_data * data_buf) {
     // drop the newline
     str_buf[stdin_recvr->amt_read - 1] = 0;
 
-    if (!strcmp(str_buf, "exit")) {
+    if (!strcmp(str_buf, "quit")) {
+        fprintf(stderr, "Quit Message Received. Shutting down\n");
         this_producer->~producer();
         RETURN_CMD;
     }
-    else if (!strncmp(str_buf, "quit", strlen("quit"))) {
-        char *   end     = str_buf + strlen("quit") + 1;
-        uint32_t dir_idx = strtol(str_buf + strlen("quit") + 1, &end, 10);
-        if (end == str_buf + strlen("quit") + 1) {
+    else if (!strncmp(str_buf, "kill", strlen("kill"))) {
+        char *   end     = str_buf + strlen("kill") + 1;
+        uint32_t dir_idx = strtol(str_buf + strlen("kill") + 1, &end, 10);
+        if (end == str_buf + strlen("kill") + 1) {
             fprintf(stderr, "Invalid command \"%s\"\n", str_buf);
             RETURN_CMD;
         }
@@ -250,8 +259,20 @@ producer::producer(uint32_t min_threads, char * _ip_addr, int32_t _portno) {
                                  ip_addr,
                                  portno,
                                  (void *)this,
-                                 &my_sigint_handler,
                                  &link_new_recvr);
+
+
+    event_set(&(this->accptr->sigint_ev),
+              SIGINT,
+              EV_SIGNAL,
+              &my_sigint_handler,
+              (void *)this);
+
+    event_base_set(this->accptr->accptr_base, &(this->accptr->sigint_ev));
+    if (event_add(&(this->accptr->sigint_ev), NULL) == (-1)) {
+        errdie("Unable to add acceptor event\n");
+    }
+
 
     this->stdin_recvr = init_stdin_recvr(0,
                                          (void *)this,
@@ -333,9 +354,11 @@ producer::kill_all_directors() {
         // eventually we want to exit ungracefully...
         iter++;
     }
+
+    // currently this is 2^32 so its about 3 days for this timeout. Kind of a
+    // failsafe...
     if (iter == MAX_ITER_FORCE_QUIT) {
-        fprintf(stderr, "Could not kill all directors. Exiting anyways...\n");
-        exit(-1);
+        die("Could not kill all directors. Exiting anyways...\n");
     }
 }
 

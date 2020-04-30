@@ -1,25 +1,27 @@
+// Struct that runs a base event loop for a single receiver that is connected to
+// a socket. The connector (as its name might suggest) can connect to a net
+// socket and handle IO over that socket. Each connector is meant to only handle
+// a single connection.
+
 #include <IO/connector.h>
+
+static void
+default_sigint_handler(const int32_t sig) {
+    DBG_ASSERT(
+        sig == SIGINT,
+        "Error sigint somehow called without SIGINT...\nClearly I messed up\n");
+
+    fprintf(stderr, "SIGINT handler evoked\n");
+    exit(0);
+}
+
+
+
+
 
 #ifdef HAS_STDIN
 static void *
 handle_stdin_command(void * arg, io_data * data_buf) {
-    receiver_t * stdin_recvr = (receiver_t *)arg;
-    int32_t net_fd = ((connector_t *)(stdin_recvr->my_parent))->net_recvr->fd;
-
-    HEADER_TYPE hdr = (stdin_recvr->amt_read) + HEADER_SIZE + sizeof(char);
-    char        null_term = 0;
-
-    uint32_t ret = myrobustwrite(net_fd, (void *)(&hdr), HEADER_SIZE);
-    ret += myrobustwrite(net_fd, stdin_recvr->buf, stdin_recvr->amt_read);
-    ret += myrobustwrite(net_fd, &null_term, sizeof(char));
-
-    DBG_ASSERT(hdr == ret,
-               "Error didnt write expected bytes: %d vs %d\n",
-               ret,
-               hdr);
-
-    stdin_recvr->amt_read = 0;
-    stdin_recvr->rd_state = READING_NONE;
     return NULL;
 }
 #endif
@@ -44,6 +46,7 @@ do_connect(const char * ip_addr, uint32_t portno) {
             ip_addr,
             portno);
     }
+    
     return net_fd;
 }
 

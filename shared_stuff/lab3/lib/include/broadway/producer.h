@@ -1,3 +1,5 @@
+// see producer.cpp
+
 #ifndef _PRODUCER_H_
 #define _PRODUCER_H_
 
@@ -10,25 +12,25 @@
 
 #include <datastructs/arr_list.h>
 
-#include <helpers/util.h>
 #include <helpers/locks.h>
+#include <helpers/util.h>
 
 #define MAX_ITER_FORCE_QUIT (~(0u))
 
 class producer {
-    char *       ip_addr;
-    uint32_t     portno;
+    char *            ip_addr;
+    uint32_t          portno;
     volatile uint32_t active_directors;
-    receiver_t * stdin_recvr;
-    acceptor_t * accptr;
-    
+    receiver_t *      stdin_recvr;
+    acceptor_t *      accptr;
+
 
    public:
     arr_list_t * director_list;
-    
+
     producer(uint32_t min_threads, char * _ip_addr, int32_t _portno);
     ~producer();
-    
+
     void produce();
     void print_director_data();
     void incr_active_dir();

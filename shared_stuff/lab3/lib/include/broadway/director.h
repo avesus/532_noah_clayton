@@ -1,3 +1,5 @@
+// see director.cpp
+
 #ifndef _DIRECTOR_H_
 #define _DIRECTOR_H_
 
@@ -40,12 +42,11 @@ struct play_config_info {
    and based on the script get necessary players (hence producer) to
    recite their lines via the Play class */
 class Director {
-    connector_t *    connect;   // for connecting to producer and handling IO
-    vector<ifstream> files;     // ifstream with script file(s)
-    vector<string>   titles;    // titles of play this director has
-    vector<string>   statuses;  // status of each play
-    vector<uint32_t> nparts;    // total number of parts for play.
-    vector<play_config_info>   pconf;    // config info for each play
+    vector<ifstream>           files;     // ifstream with script file(s)
+    vector<string>             titles;    // titles of play this director has
+    vector<string>             statuses;  // status of each play
+    vector<uint32_t>           nparts;    // total number of parts for play.
+    vector<play_config_info>   pconf;     // config info for each play
     vector<shared_ptr<Play>>   p;        // play class to actually do the scenes
     vector<shared_ptr<Player>> players;  // all necessary players
     mutex                      m;
@@ -62,7 +63,8 @@ class Director {
     volatile int32_t in_progress;
     int32_t          last_recognized;
     int32_t          last_play_idx;
-
+    connector_t *    connect;  // for connecting to producer and handling IO
+    
     Director(const string & name, char * ip_addr, uint32_t portno);
     Director(const string & name,
              uint32_t       min_players,

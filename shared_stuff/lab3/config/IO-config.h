@@ -1,3 +1,5 @@
+//General configuration information for lib/*/IO/
+
 #ifndef _IO_CONFIG_H_
 #define _IO_CONFIG_H_
 
@@ -18,8 +20,13 @@
 #define DEFAULT_MAX_RECEIVERS 64
 
 #define LISTEN_QUE (1 << 10)
+
+
 #define LOCAL_IP (char *)"127.0.0.1"
-#define PORTNO     6004
+
+
+#define DEFAULT_SERVER_IP LOCAL_IP
+#define DEFAULT_PORTNO     6004
 
 
 #endif

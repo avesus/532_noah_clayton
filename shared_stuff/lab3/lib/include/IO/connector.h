@@ -1,3 +1,5 @@
+// see connector.c
+
 #ifndef _CONNECTOR_H_
 #define _CONNECTOR_H_
 
@@ -22,6 +24,8 @@ typedef struct connector {
 #ifdef HAS_STDIN
     receiver_t * stdin_recvr;
 #endif
+
+    struct event sigint_ev;
     struct event_base * connect_base;
 } connector_t;
 

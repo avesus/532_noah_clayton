@@ -1,3 +1,6 @@
+//////////////////////////////////////////////////////////////////////
+// General helper functions/error checking wrappers 
+
 #include <helpers/util.h>
 
 
@@ -283,10 +286,10 @@ myRead(int32_t       fd,
 
 int32_t
 myRobustRead(int32_t       fd,
-              void *        buf,
-              size_t        nbytes,
-              const char *  fname,
-              const int32_t ln) {
+             void *        buf,
+             size_t        nbytes,
+             const char *  fname,
+             const int32_t ln) {
 
     int32_t ret;
     ret = read(fd, buf, nbytes);
@@ -295,7 +298,7 @@ myRobustRead(int32_t       fd,
             // maybe a short sleep here?
             return 0;
         }
-            errdie("Failed to write at %s:%d\n", fname, ln);
+        errdie("Failed to write at %s:%d\n", fname, ln);
     }
     return ret;
 }

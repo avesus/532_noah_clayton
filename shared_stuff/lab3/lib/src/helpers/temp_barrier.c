@@ -1,3 +1,6 @@
+//////////////////////////////////////////////////////////////////////
+// Temperature barrier for lowering stdev without having to frequency set.
+
 #include <helpers/temp_barrier.h>
 
 typedef struct core_enforcer_args {
@@ -829,8 +832,7 @@ tempBarrierWait(temp_barrier * tmp_barrier, int32_t coordinator) {
 // free all memory assosiated with barrier
 // tmp_barrier: barrier being freed;
 void
-freeTempBarrier(temp_barrier * tmp_barrier
-) {
+freeTempBarrier(temp_barrier * tmp_barrier) {
     pthread_barrier_destroy(&tmp_barrier->barrier);
     myfree(tmp_barrier->fds);
     if (low_bits_get(tmp_barrier->init_temps) == INTERNAL_ALLOC) {

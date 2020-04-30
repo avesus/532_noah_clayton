@@ -4,7 +4,6 @@ include common.mk
 $(shell mkdir -p $(OBJ_DIR))
 $(shell mkdir -p bin)
 $(module add gcc-7.3.0)
-$(shell export LD_LIBRARY_PATH=$(LIBEVENT_LD_DIR):$LD_LIBRARY_PATH)
 $(shell cp play_files/* .)
 
 all:

@@ -1,3 +1,6 @@
+//////////////////////////////////////////////////////////////////////
+//Finds temperature file on machine. Used in temperature barrier
+
 #include <helpers/temp.h>
 
 // two methods of finding temperatures. Via temperature zone structure

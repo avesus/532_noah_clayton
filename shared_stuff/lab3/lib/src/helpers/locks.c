@@ -1,3 +1,9 @@
+//////////////////////////////////////////////////////////////////////
+// Basic locks package with atomics. Written so that locking takes place on 8
+// byte value. lb/hb/ab or different specifiers for how much of the 8 byte region
+// the locks should use. I.e with hb locks will be in top 48-64 bits of the value
+// (this means you can do the locking on a valid ptr returned by mmap)
+
 #include <helpers/locks.h>
 
 void

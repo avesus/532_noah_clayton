@@ -1,3 +1,9 @@
+//////////////////////////////////////////////////////////////////////
+// Debugger mainly for symbol dumping in highly parallel code. Idea is GDB slows
+// down code to much so that when trying to debug race conditions will sometimes
+// hide them. Idea here is you can stack trace functionality where you think its
+// needed w.o so much slowdown so hopefully race condition will still show itself
+
 #include <helpers/debug.h>
 
 

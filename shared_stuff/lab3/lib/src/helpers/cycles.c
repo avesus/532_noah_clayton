@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////////////////////
+// Just generic timing library for code I've gotten sick of rewriting. Not that
+// great but usually enough. Basically initializes some timers, takes some
+// times, and prints statistical summary as CSV or human readable format.
+// Difference betweeen this and clock is this uses rdtsc for timing. Really
+// should be one file but I'm lazy
+
 #include <helpers/cycles.h>
 
 

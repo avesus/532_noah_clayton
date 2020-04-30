@@ -1,3 +1,8 @@
+//////////////////////////////////////////////////////////////////////
+// Just generic timing library for code I've gotten sick of rewriting. Not that
+// great but usually enough. Basically initializes some timers, takes some
+// times, and prints statistical summary as CSV or human readable format.
+
 #include <helpers/clock.h>
 
 // simply allocs ts_stamps as specified by length. We are preallocating

@@ -1,3 +1,9 @@
+//////////////////////////////////////////////////////////////////////
+// General library with a few useful functions. The fast_* is not very practical
+// unless you happen to be on a system without any builting memcpy optimizations
+// (rare). Most of the value is just in the asm wrappers (see .h file) and the
+// bit trick functions.
+
 #include <helpers/opt.h>
 
 

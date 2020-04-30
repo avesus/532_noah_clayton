@@ -1,20 +1,25 @@
+//////////////////////////////////////////////////////////////////////
+// Non blocking parallel hashtable. Optimized for addition only. Used as backend
+// persay in debugger.
+
 #include <local/hashtable.h>
 
 
 #ifdef lazy_resize
-static uint32_t
-addNode_resize(hashTable * head,
-               uint32_t    start,
-               node *      n,
-               uint32_t    tid,
-               uint16_t    tag
+static uint32_t addNode_resize(hashTable * head,
+                               uint32_t    start,
+                               node *      n,
+                               uint32_t    tid,
+                               uint16_t    tag
     #ifdef next_hash
-               ,
-               uint32_t from_slot
+                               ,
+                               uint32_t from_slot
     #endif  // next_hash
 );
-static void
-resize_node(hashTable * head, subTable * ht, uint32_t slot, uint32_t tid);
+static void     resize_node(hashTable * head,
+                            subTable *  ht,
+                            uint32_t    slot,
+                            uint32_t    tid);
 #endif  // lazy_resize
 
 
@@ -217,9 +222,9 @@ addDrop(hashTable * head,
     // make the array circular so add/delete continuous will always have space.
     // Assumed that resizer will keep up with insertion rate (this is probably
     // provable as when resize is active (which occurs when num subtables >
-    //threshhold each insert brings an old item with it). Also if the diff
-    // between max/min subtables exceed a certain bound will start doubling again
-    // irrelivant of delete/insert ratio
+    // threshhold each insert brings an old item with it). Also if the diff
+    // between max/min subtables exceed a certain bound will start doubling
+    // again irrelivant of delete/insert ratio
 
     // try and add new preallocated table (CAS so only one added)
     subTable * expected = NULL;
@@ -238,7 +243,8 @@ addDrop(hashTable * head,
                                   1,
                                   __ATOMIC_RELAXED,
                                   __ATOMIC_RELAXED);
-    } else {
+    }
+    else {
         // if failed free subtable then try and update new max then insert item
         freeST(toadd);
         uint64_t newSize = addSlot + 1;
@@ -340,7 +346,7 @@ addNode_resize(hashTable * head,
         // means just reused old slot
         if (ht->tableSize != prev->tableSize) {
             //	fprintf(stderr, "%d:: %x |= ((%x>>%d (%x) )&0x1) << %d -> ", j,
-            //from_slot, getNH(n, 0), hb_index, getNH(n, hb_index),
+            // from_slot, getNH(n, 0), hb_index, getNH(n, hb_index),
             //(ht->logTableSize-1));
             from_slot |= (getNH(n, hb_index) & 0x1) << (ht->logTableSize - 1);
             hb_index++;
@@ -365,9 +371,11 @@ addNode_resize(hashTable * head,
                 // lookup value in sub table
                 if (res == unknown) {  // unkown if in our not
                     continue;
-                } else if (res == in) {  // is in
+                }
+                else if (res == in) {  // is in
                     return 0;
-                } else {
+                }
+                else {
 
                     // if return was null (is available slot in sub table) try
                     // and add with CAS. if succeed return 1, else if value it
@@ -388,7 +396,8 @@ addNode_resize(hashTable * head,
                         // if we win CAS increment insert count and return 1
 
                         return 1;
-                    } else {
+                    }
+                    else {
                         // else check if value that was lost to is same, if not
                         // keep going, if is turn 0
                         if (compare_keys(getKey(ht->innerTable[res]),
@@ -462,7 +471,8 @@ addNode_resize(hashTable * head,
 
                     if (res == unknown) {  // unkown if in our not
                         continue;
-                    } else if (res == in) {  // is in
+                    }
+                    else if (res == in) {  // is in
                         return 0;
                     }
 
@@ -491,7 +501,8 @@ addNode_resize(hashTable * head,
                             // if we win CAS increment insert count and return 1
 
                             return 1;
-                        } else {
+                        }
+                        else {
                             // else check if value that was lost to is same, if
                             // not keep going, if is turn 0
                             if (compare_keys(getKey(ht->innerTable[res]),
@@ -626,7 +637,8 @@ addNode(hashTable * head, node * n, uint32_t tid) {
 
                     if (res == unknown_in) {  // unkown if in our not
                         continue;
-                    } else if (res == is_in) {  // is in
+                    }
+                    else if (res == is_in) {  // is in
                         return set_return(
                             ht->innerTable[slot + (c & (uBound - 1))],
                             1);
@@ -667,7 +679,8 @@ addNode(hashTable * head, node * n, uint32_t tid) {
                             // increment insert count
                             // and return 1
                             return set_return(ht->innerTable[res], 1);
-                        } else {
+                        }
+                        else {
                             // else check if value
                             // that was lost to is
                             // same, if not keep

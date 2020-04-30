@@ -1,3 +1,7 @@
+//////////////////////////////////////////////////////////////////////
+//Main to run producer for Lab 3 in CSE 532
+
+
 #include "do_producer.h"
 
 //#define ARG_PARSER_ON

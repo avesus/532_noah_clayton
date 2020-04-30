@@ -1,76 +1,0 @@
-1)
-Noah Goldstein & Clayton Knittel
-
-
-2)
-class int_class {
- public:
-  virtual void operator() (char&)=0;
-};
-
-
-3)
-noah[08:31:58]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver 
-Arg[0]: ./aserver
-New Acceptor On ->
-	127.0.0.1:6005
-./aclient
-asd
-asds
-
-4)
-Without Server Reversal
-noah[08:37:29]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver 
-Arg[0]: ./aserver
-New Acceptor On ->
-	127.0.0.1:6005
-'&hje`lg}hzmhzmz  C-c C-cClosing...
-
-With Server Reversal
-noah[08:37:15]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver 
-Arg[0]: ./aserver
-New Acceptor On ->
-	127.0.0.1:6005
-./aclient
-asd
-asds
-
-5)
-Just had derived classes that wanted an argument have optioned constructor to take one. Still go back to base just have variable now. If not argument passed just defaults.
-
-6)
-Since XOR is a great encrpytion device basically client encrypts with a chain of XOR and server decrypts with same chain.
-
-7)
-Trials:
-server skipped every other decrypt operator
-noah[08:55:04]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver 
-Arg[0]: ./aserver
-New Acceptor On ->
-	127.0.0.1:6005
-PR]XT_E;PBU;PBUB;  C-c C-cClosing...
-
-server had a single key off by 1
-noah[08:58:10]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver 
-Arg[0]: ./aserver
-New Acceptor On ->
-	127.0.0.1:6005
-/.`bmhdou`re`rerNew Acceptor On ->
-	127.0.0.1:6005
-/.`bmhdou`re`rer  C-c C-cClosing...
-
-server had each key off by 1
-noah[08:58:37]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver 
-Arg[0]: ./aserver
-New Acceptor On ->
-	127.0.0.1:6005
-SQ^[W\F8SAV8SAVA8
-
-server different number of keys
-noah[08:58:57]:~/programs/classes/active/532/532_noah_clayton/shared_stuff/studios/s12/ace_server$ ./aserver 
-Arg[0]: ./aserver
-New Acceptor On ->
-	127.0.0.1:6005
-PR]XT_E;PBU;PBUB;  C-c C-cClosing...
-
-All showed failed decryptions. XOR is powerful :)

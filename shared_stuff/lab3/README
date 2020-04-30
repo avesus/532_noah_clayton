@@ -17,6 +17,17 @@ Director Executable         : ./bin/do_director
 3.1) Directories
 
 --------------------------------------------------------------------------------
+libevent_src/	    : Unfortunately the libevent version downloaded in
+		      the shell/linuxlab machines is only compatible
+		      with gcc-4.8.5 (and is aggressively outdate) so
+		      we had to install a local copy. Wish I had
+		      tested this sooner as if we had known we would
+		      need to do this we would have used libev
+		      instead.
+--------------------------------------------------------------------------------
+libevent_include/   : Directory contain local libevent
+		      includes/library files.
+--------------------------------------------------------------------------------
 bin/                : Directory for executables
 --------------------------------------------------------------------------------
 main/               : Directory for source files with main() function
@@ -60,10 +71,7 @@ lib/                : all source and header files for helper
 
         lib/*/IO                  : Code for doing event driven
                                     asynchronous IO and signal
-                                    handling. Built on libevent (would
-                                    have prefered libev but the
-                                    linuxlab machines don't have it
-                                    installed)
+                                    handling. Built on libevent.
 
         lib/*/local               : helper functions/code for helper
                                     functions. These are not part of

@@ -3,8 +3,9 @@
 #ifndef _RECEIVER_H_
 #define _RECEIVER_H_
 
+#include <IO-config.h>
 #include <IO/io_header.h>
-#include <event.h>
+
 #include <helpers/bits.h>
 #include <helpers/debug.h>
 #include <helpers/locks.h>

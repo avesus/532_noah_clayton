@@ -1,7 +1,12 @@
+
+
 BASE_DIR=${CURDIR}
 CONFIG_DIR=$(BASE_DIR)/config
 INCLUDE_DIR=$(BASE_DIR)/lib/include/
 COMPILE_CONF_FILE=$(BASE_DIR)/config/compile-config.h
+
+LIBEVENT_INCLUDE_DIR=$(BASE_DIR)/libevent_include/include/
+LIBEVENT_LD_DIR=$(BASE_DIR)/libevent_include/lib/
 
 OBJ_DIR=$(BASE_DIR)/.obj
 BIN_DIR=${CURDIR}/bin
@@ -34,10 +39,10 @@ CC=g++
 
 #debug vs non debug flags
 ifeq ($(DEBUG_MODE), 0)
-CFLAGS=-O3 -std=c++11 -Wall -Wno-pointer-arith -Wno-unused-function -D_GNU_SOURCE -I$(CONFIG_DIR) -I$(INCLUDE_DIR)
+CFLAGS=-O3 -std=c++11 -Wall -Wno-pointer-arith -Wno-unused-function -D_GNU_SOURCE -I$(CONFIG_DIR) -I$(INCLUDE_DIR) -I$(LIBEVENT_INCLUDE_DIR)
 else
-CFLAGS=-O0 -std=c++11 -Wall -Wno-pointer-arith -Wno-unused-function -g3 -DDEBUG -D_GNU_SOURCE -I$(CONFIG_DIR) -I$(INCLUDE_DIR)
+CFLAGS=-O0 -std=c++11 -Wall -Wno-pointer-arith -Wno-unused-function -g3 -DDEBUG -D_GNU_SOURCE -I$(CONFIG_DIR) -I$(INCLUDE_DIR) -I$(LIBEVENT_INCLUDE_DIR)
 endif
 
 #ldflags
-LDFLAGS=-lpthread -lm -rdynamic -levent -levent_pthreads
+LDFLAGS=-lpthread -lm -rdynamic -L$(LIBEVENT_LD_DIR) -levent -levent_pthreads

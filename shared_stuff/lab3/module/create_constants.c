@@ -74,10 +74,10 @@ int32_t main(int32_t argc, char *argv[]) {
   }
 
   char transfer_path[BIG_PATH_LEN] = "";
-  if ((result = createTempBasePath(transfer_path)) == NOT_FOUND) {
+  /*  if ((result = createTempBasePath(transfer_path)) == NOT_FOUND) {
     errdie("Couldn't find directory with core temp info. Please check temp.h "
            "params\n");
-  }
+	   }*/
 
   int32_t ncores = sysconf(_SC_NPROCESSORS_ONLN);
   FILE *config_fp = myfopen(compile_time_path, "w");

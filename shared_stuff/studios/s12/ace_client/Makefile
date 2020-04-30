@@ -1,8 +1,0 @@
-all:
-	(cd ../ace_interceptor/; make clean; make)
-	g++ -L$(ACE_ROOT)/ace -Wall -std=c++11 -pthread -DTEMPLATE_HEADERS_INCLUDE_SOURCE -o aclient aclient.cpp -I$(ACE_ROOT) -lACE
-
-
-clean:
-	rm -f aclient *~
-

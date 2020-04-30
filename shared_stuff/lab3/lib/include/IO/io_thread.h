@@ -9,9 +9,6 @@
 #include <helpers/opt.h>
 #include <helpers/util.h>
 
-#include <event.h>
-#include <event2/event.h>
-#include <event2/event_compat.h>
 
 #define CONTINUE 0
 #define QUIT     1

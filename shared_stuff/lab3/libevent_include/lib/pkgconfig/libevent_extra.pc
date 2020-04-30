@@ -1,0 +1,16 @@
+#libevent pkg-config source file
+
+prefix=/home/warehouse/goldstein.n/test_532/532_noah_clayton/shared_stuff/lab3/libevent_include
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libevent_extra
+Description: libevent_extra
+Version: 2.1.10-stable
+Requires:
+Conflicts:
+Libs: -L${libdir} -levent_extra
+Libs.private: 
+Cflags: -I${includedir}
+

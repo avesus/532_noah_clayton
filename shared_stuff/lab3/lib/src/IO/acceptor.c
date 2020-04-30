@@ -28,11 +28,6 @@ prep_accptr_socket(char * ip_addr, uint32_t portno) {
     addr.sin_addr.s_addr = INADDR_ANY;
     addr.sin_port        = htons(portno);
 
-    // if a specific IP (for example local host) was specified then set that
-    // directly otherwise INADDR_ANY will fine
-    if (strcmp(ip_addr, "")) {
-        inet_aton(ip_addr, &addr.sin_addr);
-    }
 
     int32_t socket_flags = 1;
     int32_t socket_fd    = socket(AF_INET, SOCK_STREAM, 0);

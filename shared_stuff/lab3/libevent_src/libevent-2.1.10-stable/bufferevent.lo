@@ -8,5 +8,5 @@
 pic_object='.libs/bufferevent.o'
 
 # Name of the non-PIC object
-non_pic_object=none
+non_pic_object='bufferevent.o'
 

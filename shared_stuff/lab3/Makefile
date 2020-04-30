@@ -3,12 +3,9 @@ include common.mk
 
 $(shell mkdir -p $(OBJ_DIR))
 $(shell mkdir -p bin)
-$(module add gcc-7.3.0)
 $(shell cp play_files/* .)
 
 all:
-
-
 
 ifneq ($(WITH_CONSTANTS), 0)
 	(make -C lib/ BASE_DIR=${CURDIR} ODIR=$(OBJ_DIR))

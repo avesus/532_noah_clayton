@@ -10,8 +10,19 @@ This project implements an synchronous event driven IO structure for
 communication between a server (producer) and client(s)
 (director). The IO portion is built on libevent. 
 
+NOTE: before running must run $> module add gcc-7.3.0
+
 Producer Executable         : ./bin/do_producer
 Director Executable         : ./bin/do_director
+
+or
+
+$> ./run_producer.sh
+$> ./run_director.sh
+
+Which run producer/director with module added.
+
+
 
 
 3.1) Directories
@@ -292,10 +303,10 @@ Example Usage:
 Shell 1$> make clean; make
 
 *** Start Producer ***
-Shell 1$> ./bin/do_producer 6004
+Shell 1$> ./run_producer 6004
 
 *** Connect a Director ***
-Shell 2$> ./bin/do_director 6004 127.0.0.1 0 partial_hamlet_act_ii_scene_1_script.txt partial_hamlet_act_ii_script.txt 
+Shell 2$> ./run_director 6004 127.0.0.1 0 partial_hamlet_act_ii_scene_1_script.txt partial_hamlet_act_ii_script.txt 
 
 *** Have Director Index 0 recite                                        ***
 *** "partial_hamlet_act_ii_scene_1_script.txt". Director will print     ***
@@ -304,7 +315,7 @@ Shell 2$> ./bin/do_director 6004 127.0.0.1 0 partial_hamlet_act_ii_scene_1_scrip
 Shell 1$> play 0 partial_hamlet_act_ii_scene_1_script.txt
 
 *** Connect another Director ***
-SHELL 3$> ./bin/do_director 6004 127.0.0.1 0 partial_hamlet_act_ii_scene_1_script.txt
+SHELL 3$> ./run_director 6004 127.0.0.1 0 partial_hamlet_act_ii_scene_1_script.txt
 
 *** Have Director Index 1 recite (this will be director connected on    ***
 *** Shell 3)                                                            ***
@@ -317,7 +328,7 @@ Shell 1$> play 0 partial_hamlet_act_ii_script.txt
 Shell 1$> cancel 0
 
 *** Connect another Director ***
-SHELL 4$> ./bin/do_director 6004 127.0.0.1 0 partial_hamlet_act_ii_script.txt
+SHELL 4$> ./run_director 6004 127.0.0.1 0 partial_hamlet_act_ii_script.txt
 
 *** Have Director Index 2 recite ***
 Shell 1$> play 2 partial_hamlet_act_ii_script.txtw
@@ -326,7 +337,7 @@ Shell 1$> play 2 partial_hamlet_act_ii_script.txtw
 Shell 1$> kill 1
 
 *** Connect another Director ***
-SHELL 3$> ./bin/do_director 6004 127.0.0.1 0 partial_hamlet_act_ii_script.txt
+SHELL 3$> ./run_director 6004 127.0.0.1 0 partial_hamlet_act_ii_script.txt
 
 *** Have Director Index 1 recite (this will be director connected on    ***
 *** Shell 3 as it will reclaim the available index)                     ***

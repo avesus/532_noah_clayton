@@ -1,4 +1,4 @@
-
+SHELL=/bin/bash
 
 BASE_DIR=${CURDIR}
 CONFIG_DIR=$(BASE_DIR)/config
@@ -35,14 +35,14 @@ endif
 
 
 #gcc for lyfe
-CC=g++
+CC=module load gcc-7.3.0; g++
 
 #debug vs non debug flags
 ifeq ($(DEBUG_MODE), 0)
-CFLAGS=-O3 -std=c++11 -Wall -Wno-pointer-arith -Wno-unused-function -D_GNU_SOURCE -I$(CONFIG_DIR) -I$(INCLUDE_DIR) -I$(LIBEVENT_INCLUDE_DIR)
+CFLAGS=-O3 -std=c++11 -Wall -Wno-pointer-arith -Wno-unused-function -D_GNU_SOURCE -I$(CONFIG_DIR) -I$(INCLUDE_DIR) -I$(LIBEVENT_INCLUDE_DIR) 
 else
-CFLAGS=-O0 -std=c++11 -Wall -Wno-pointer-arith -Wno-unused-function -g3 -DDEBUG -D_GNU_SOURCE -I$(CONFIG_DIR) -I$(INCLUDE_DIR) -I$(LIBEVENT_INCLUDE_DIR)
+CFLAGS=-O0 -std=c++11 -Wall -Wno-pointer-arith -Wno-unused-function -g3 -DDEBUG -D_GNU_SOURCE -I$(CONFIG_DIR) -I$(INCLUDE_DIR) -I$(LIBEVENT_INCLUDE_DIR) 
 endif
 
 #ldflags
-LDFLAGS=-lpthread -lm -rdynamic -L$(LIBEVENT_LD_DIR) -levent -levent_pthreads
+LDFLAGS=-lpthread -lm -rdynamic -L$(LIBEVENT_LD_DIR) -levent -levent_pthreads -Wl,-R$(LIBEVENT_LD_DIR)

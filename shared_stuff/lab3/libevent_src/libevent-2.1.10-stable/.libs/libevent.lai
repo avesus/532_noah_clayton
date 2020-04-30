@@ -11,7 +11,7 @@ dlname='libevent-2.1.so.6'
 library_names='libevent-2.1.so.6.0.4 libevent-2.1.so.6 libevent.so'
 
 # The name of the static archive.
-old_library=''
+old_library='libevent.a'
 
 # Linker flags that cannot go in dependency_libs.
 inherited_linker_flags=' -pthread'
